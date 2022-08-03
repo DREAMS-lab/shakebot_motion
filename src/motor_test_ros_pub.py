@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+import rospy
+from std_msgs.msg import Float64
+
+from time import sleep
+import RPi.GPIO as GPIO
+
+import rospy
+from std_msgs.msg import String
+import math
+
+def talker():
+    pub = rospy.Publisher('Frequency', Float64, queue_size=10)
+    rospy.init_node('Freq_Publisher', anonymous=True)
+    rate = rospy.Rate(200) # 100hz
+    
+    T = 500
+    t=0
+    
+    linear_vel = 1 # Meters per Second 
+    
+    hub_dia = 50.161 / 1000 #Pulley With Belt 48.51mm (Pulley Diameter) + 1.651mm (Thickness of Belt)= 50.161mm
+    
+    speed_rpm = linear_vel * 60 / (hub_dia/2) # Revolutions per Minute || Angular Velocity = Linear Velocity / Radius of Hub
+    
+    freq_max = ((1/1.8) * 360 * speed_rpm) / 60 # Frequency = RPM * 360 / (Step Angle * 60)
+    
+    while not rospy.is_shutdown():
+        if t < T:
+            freq = round((freq_max*math.sin(t/T*2*math.pi)),4)
+            #rospy.loginfo(freq)
+            t=t+1
+            pub.publish(freq)
+        rate.sleep()
+        
+        if(t==T):
+            pub.publish(4001)
+            rospy.loginfo("Reached End of Motion")
+            exit()
+
+if __name__ == '__main__':
+        talker()
+
