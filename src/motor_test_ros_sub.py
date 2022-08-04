@@ -16,7 +16,7 @@ GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
 GPIO.setup(STEP, GPIO.OUT)					   # Initialization of Step Output Pin
 
 p = GPIO.PWM(STEP,1) 						   # Initializing the GPIO pin to output PWM signal
-p.start(100)  								   # Starting the motor with 100% duty cycle	
+p.start(50)  								   # Starting the motor with 100% duty cycle	
 
 
 def callback(data):
@@ -27,7 +27,7 @@ def callback(data):
 	else:
 		GPIO.output(DIR, CCW)
 	
-	if(abs(data.data)>0):					   # To Publish the frequency of motor through the GPIO pin
+	if(abs(data.data)>0 and abs(data.data)!=4001):					   # To Publish the frequency of motor through the GPIO pin
 		p.ChangeFrequency(abs(data.data)) 
 		#print(data.data)
 	
