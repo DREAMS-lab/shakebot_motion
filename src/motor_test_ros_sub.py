@@ -10,42 +10,39 @@ DIR = 20
 STEP = 18
 CW = 1
 CCW = 0
-SPR = 2000  # no of steps 1600 = 1 Revolution Can be configured on the Driver
+SPR = 2000  								  # No of Pulse need for 1 Revolution
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 GPIO.output(DIR, CW)
 
-step_count = SPR*10
-#delay = .00001*5  #pulse width / Velocity
-
-p = GPIO.PWM(STEP,1) #(Channel,Freq)
-p.start(50) # pulse width percentage
+p = GPIO.PWM(STEP,1) 						  # Initializing the GPIO pin to output PWM signal
+p.start(100)  								  # Starting the motor with 100% duty cycle	
 
 
 def callback(data):
-	#print(data.data)
-	 
-	if(data.data>=0):
+	#print(data.data)						   # Used to print the data received
+ 
+	if(data.data>=0):						   # Condition to check the direciton of motor
 		GPIO.output(DIR, CW)
 	else:
 		GPIO.output(DIR, CCW)
 	
-	if(abs(data.data)>0):
+	if(abs(data.data)>0):					   # To Publish the frequency of motor through the GPIO pin
 		p.ChangeFrequency(abs(data.data)) 
 		#print(data.data)
 	
-	if(data.data)==4001: #Maximum Frequency is 4000KHz = 1200 RPM
-		p.stop()
+	if(data.data)==4001: 						# To stop the motor upon completion of the motion
 		rospy.loginfo("Ending Motion")
 		rospy.signal_shutdown("Stopping")
+
+	if(abs(data.data)>4000):					# Safety Check to avoid overspeed or motor failure
+		rospy.loginfo("Speed is too high")
+		rospy.signal_shutdown("Ending Program")
+
   		  
-	#GPIO.output(STEP, GPIO.HIGH)
-	#sleep(abs(data.data))
-	#GPIO.output(STEP, GPIO.LOW)
-	#sleep(abs(data.data))
-	
+
 
 def motorcnt():
 	

@@ -35,16 +35,18 @@ In the First Terminal, run the following command:
 ```
 roscore
 ```
-In the Second Terminal, run the following command: 
+In the Second Terminal, run the following command, this will launch the subscriber node and will be waiting for the publisher node to publish the frequency.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src
 python3 motor_test_ros_sub.py
 ```
-In the Third Terminal, run the following command: 
+In the Third Terminal, run the following command, this will launch the publisher node and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src
 python3 motor_test_ros_pub.py
 ```
+
+
 ## Links to Manuals and Software
 
 Please Refer the Document for more Information on Circuit Diagram and Setup Process : https://bit.ly/shake_table_control_doc
