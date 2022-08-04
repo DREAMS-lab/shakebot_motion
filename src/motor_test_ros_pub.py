@@ -10,9 +10,9 @@ from std_msgs.msg import String
 import math
 
 def talker():
-    pub = rospy.Publisher('Frequency', Float64, queue_size=10)
-    rospy.init_node('Freq_Publisher', anonymous=True)
-    rate = rospy.Rate(200)
+    pub = rospy.Publisher('Frequency', Float64, queue_size=10)      # Publishing to the topic "Frequency"
+    rospy.init_node('Freq_Publisher', anonymous=True)               # Initialization of Node
+    rate = rospy.Rate(200)                                          # Rate of publishing the data
     
     T = 500
     t=0

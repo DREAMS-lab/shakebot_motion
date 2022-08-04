@@ -43,12 +43,12 @@ In the First Terminal, run the following command:
 ```
 roscore
 ```
-In the Second Terminal, run the following command, this will launch the subscriber node and will be waiting for the publisher node to publish the frequency.
+In the Second Terminal, run the following command, this will launch the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_sub.py) and will be waiting for the publisher node to publish the frequency.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src
 python3 motor_test_ros_sub.py
 ```
-In the Third Terminal, run the following command, this will launch the publisher node and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
+In the Third Terminal, run the following command, this will launch the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src 
 python3 motor_test_ros_pub.py
@@ -57,7 +57,7 @@ The Formulation for the frequency calculation can be referred [here](https://bit
 
 ## Restrictions and Limitations
 
-Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM to ensure longevity of the motor.
+Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM to ensure longevity of the motor. So, if the velocity is higher than 1200 RPM, the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) will terminate.
 
 ## Links to Manuals and Software
 

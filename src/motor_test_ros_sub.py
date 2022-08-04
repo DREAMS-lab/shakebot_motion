@@ -6,11 +6,10 @@ from std_msgs.msg import Float64
 from time import sleep
 import RPi.GPIO as GPIO
 
-DIR = 20
-STEP = 18
+DIR = 20									    # GPIO pin for Direction (Digital)
+STEP = 18										# GPIO pin for Step Output (PWM)
 CW = 1
 CCW = 0
-SPR = 2000  								   # No of Pulse need for 1 Revolution
 
 GPIO.setmode(GPIO.BCM)						   # Initialization of GPIO pins in BCM(Broadcom SOC mode) 
 GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
