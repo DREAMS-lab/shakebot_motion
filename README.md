@@ -29,13 +29,22 @@ cd ~/catkin_ws/
 catkin_make or catkin build
 ```
 This will set up the workspace and will allow you to run the python scripts to launch the nodes. 
-Please follow the next steps to launch the Publisher and Subscriber nodes. 
+Please follow the next steps to launch the Publisher and Subscriber nodes. Please open 3 seperate terminals.
 
+In the First Terminal, run the following command: 
+```
+roscore
+```
+In the Second Terminal, run the following command: 
 ```
 cd ~/catkin_ws/src/shakebot_motion/src
-
+python3 motor_test_ros_sub.py
 ```
-
+In the Third Terminal, run the following command: 
+```
+cd ~/catkin_ws/src/shakebot_motion/src
+python3 motor_test_ros_pub.py
+```
 ## Links to Manuals and Software
 
 Please Refer the Document for more Information on Circuit Diagram and Setup Process : https://bit.ly/shake_table_control_doc
