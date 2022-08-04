@@ -14,9 +14,17 @@ The circuit consists of four main components which are:
 The wiring diagram can be referred [here](https://bit.ly/shake_table_control_doc) in Page 1 Section 1.
 It also consists of a test setup which shows actual photos from the prototype
 
-###### Please ensure that proper grouding is done to the components to reduce risk of electrical shocking. 
+**DIP Switch Configuration**
+
+The DIP Switches on the Motor Driver allows us to change the value for Pulses per Revolution, it the number of pulses required to complete one revolution. The default value is set to 2000 to match with [Stepper Motor Torque Curve](https://bit.ly/shake_table_torque_curve). If you intend to change it, please change the same in the [Publisher Node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) in line #22 also.
+
+**Please ensure that proper grouding is done to the components to reduce risk of electrical shocking**
 
 ## ROS Package Setup and Code Brief
+
+**Please continue only if you had installed ROS and had setup the ROS environment, else please install and setup the same**
+
+Requirements: [Ubuntu 20.04 LTS](https://bit.ly/Ubuntu_Install), [ROS Noetic](https://bit.ly/ROS_Install), [Python3](https://bit.ly/Python3_Install)
 
 Please follow the below steps to setup the ROS package. 
 
@@ -45,7 +53,7 @@ In the Third Terminal, run the following command, this will launch the publisher
 cd ~/catkin_ws/src/shakebot_motion/src 
 python3 motor_test_ros_pub.py
 ```
-The Formulation for the frequency calcualtion can be referred [here](https://bit.ly/shake_table_control_doc) in Page 4 Section 6.
+The Formulation for the frequency calculation can be referred [here](https://bit.ly/shake_table_control_doc) in Page 4 Section 6.
 
 ## Restrictions and Limitations
 
