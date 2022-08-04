@@ -21,7 +21,7 @@ def talker():
 
     pulse_rev = 2000                                            # Number of pulses per revolution
     
-    hub_dia = 50.161 / 1000                                     # Pulley With Belt 48.51mm (Pulley Diameter) + 1.651mm (Thickness of Belt)= 50.161mm
+    hub_dia = 51.812 / 1000                                     # Pulley With Belt 48.51mm (Pulley Diameter) + 2 * 1.651mm (Thickness of Belt)= 51.812mm
     
     speed_rpm = linear_vel * 60 / (hub_dia/2)                   # Revolutions per Minute || Angular Velocity = Linear Velocity / Radius of Hub
 

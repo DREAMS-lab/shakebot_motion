@@ -11,7 +11,7 @@ The circuit consists of four main components which are:
 - Motor Driver 
 - Raspberry Pi
 
-The wiring diagram can be referred in the following link in Page 1 : https://bit.ly/shake_table_control_doc
+The wiring diagram can be referred in the following link in Page 1 Section 1: https://bit.ly/shake_table_control_doc
 It also consists of a test setup which shows actual photos from the prototype
 
 ###### Please ensure that proper grouding is done to the components to reduce risk of electrical shocking. 
@@ -42,10 +42,14 @@ python3 motor_test_ros_sub.py
 ```
 In the Third Terminal, run the following command, this will launch the publisher node and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
 ```
-cd ~/catkin_ws/src/shakebot_motion/src
+cd ~/catkin_ws/src/shakebot_motion/src 
 python3 motor_test_ros_pub.py
 ```
+The Formulation for the frequency calcualtion can be referred in the following link in Page 4 Section 6 : https://bit.ly/shake_table_control_doc
 
+## Restrictions and Limitations
+
+Even though NEMA 34 motors can attain maximum speed of 4000 RPM, we have limited it to 1200 RPM. Reference : https://bit.ly/motor_max_speed
 
 ## Links to Manuals and Software
 
