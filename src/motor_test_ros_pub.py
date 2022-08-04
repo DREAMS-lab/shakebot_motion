@@ -32,7 +32,7 @@ def talker():
     freq_max = speed_rpm  / ((1.8/360) * 60)      # Frequency = RPM * 360 * 360 / (Pulse/Rev * 60)
     
     #rospy.loginfo(speed_rpm)
-    rospy.loginfo(freq_max)
+    #rospy.loginfo(freq_max)
     
     freq_max = 2 *freq_max
     
