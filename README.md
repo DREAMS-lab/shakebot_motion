@@ -11,7 +11,7 @@ The circuit consists of four main components which are:
 - Motor Driver 
 - Raspberry Pi
 
-The wiring diagram can be referred in the following link in Page 1 Section 1: https://bit.ly/shake_table_control_doc
+The wiring diagram can be referred [here](https://bit.ly/shake_table_control_doc) in Page 1 Section 1.
 It also consists of a test setup which shows actual photos from the prototype
 
 ###### Please ensure that proper grouding is done to the components to reduce risk of electrical shocking. 
@@ -45,26 +45,26 @@ In the Third Terminal, run the following command, this will launch the publisher
 cd ~/catkin_ws/src/shakebot_motion/src 
 python3 motor_test_ros_pub.py
 ```
-The Formulation for the frequency calcualtion can be referred in the following link in Page 4 Section 6 : https://bit.ly/shake_table_control_doc
+The Formulation for the frequency calcualtion can be referred [here](https://bit.ly/shake_table_control_doc) in Page 4 Section 6.
 
 ## Restrictions and Limitations
 
-Even though NEMA 34 motors can attain maximum speed of 4000 RPM, we have limited it to 1200 RPM. Reference : https://bit.ly/motor_max_speed
+Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM.
 
 ## Links to Manuals and Software
 
-Please Refer the Document for more Information on Circuit Diagram and Setup Process : https://bit.ly/shake_table_control_doc
+[Information on Circuit Diagram and Setup Process](https://bit.ly/shake_table_control_doc)
 
-Website Link to Motor and Motor-Driver : https://bit.ly/shake_table_motor_driver
+[Motor and Motor-Driver Product Page](https://bit.ly/shake_table_motor_driver)
 
-Motor-Driver Manual : https://bit.ly/shake_table_motor_driver_manual
+[Motor-Driver Manual](https://bit.ly/shake_table_motor_driver_manual)
 
-Stepper Motor Data Sheet : https://bit.ly/shake_table_stepper_data_sheet
+[Stepper Motor Data Sheet](https://bit.ly/shake_table_stepper_data_sheet)
 
-Stepper Motor Torque Curve : https://bit.ly/shake_table_torque_curve
+[Stepper Motor Torque Curve](https://bit.ly/shake_table_torque_curve)
 
-Power Supply Manual : https://bit.ly/shake_table_power_supply_manual
+[Power Supply Manual](https://bit.ly/shake_table_power_supply_manual)
 
-Windows Debugging Software : https://bit.ly/shake_table_windows_debug_software
+[Windows Debugging Software for Motor Driver](https://bit.ly/shake_table_windows_debug_software)
 
-Debugging Software Manual : https://bit.ly/shake_table_debugging_software_manual
+[Debugging Software Manual](https://bit.ly/shake_table_debugging_software_manual)

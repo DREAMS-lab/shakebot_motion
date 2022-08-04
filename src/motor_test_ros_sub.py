@@ -36,10 +36,6 @@ def callback(data):
 		rospy.loginfo("Ending Motion")
 		rospy.signal_shutdown("Stopping")
 
-	if(abs(data.data)>4000):				   # Safety Check to avoid overspeed or motor failure
-		rospy.loginfo("Speed is too high")
-		rospy.signal_shutdown("Ending Program")
-
   		  
 
 
