@@ -1,4 +1,4 @@
-# ShakeBot Motion Repo
+# ShakeBot Motion
 ## Repository which helps to setup the Shake Table Motor-Drive and Raspberry Pi to achieve low level Control.
 
 The package consists of files which will be used to setup the Raspberry Pi to control the Shake Table Motor-Drive using ROS. The package contains two python scripts which will launch a publisher and subscriber node, which will in turn control the motor. 
