@@ -6,10 +6,10 @@ The package consists of files which will be used to setup the Raspberry Pi to co
 ## Circuit Setup and Wiring 
 
 The circuit consists of four main components which are: 
-- Power Supply
-- Motor
-- Motor Driver 
-- Raspberry Pi
+- [Power Supply](https://bit.ly/shake_table_motor_driver)
+- [Motor](https://bit.ly/shake_table_motor_driver)
+- [Motor Driver](https://bit.ly/shake_table_motor_driver)
+- [Raspberry Pi](https://bit.ly/Raspberry_Pi_4)
 
 The wiring diagram can be referred [here](https://bit.ly/shake_table_control_doc) in Page 1 Section 1.
 It also consists of a test setup which shows actual photos from the prototype
@@ -57,7 +57,7 @@ The Formulation for the frequency calculation can be referred [here](https://bit
 
 ## Restrictions and Limitations
 
-Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM.
+Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM to ensure longevity of the motor.
 
 ## Links to Manuals and Software
 
