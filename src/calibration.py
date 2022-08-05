@@ -4,7 +4,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 LEFT = 17
-RIGHT = 13
+RIGHT = 5
 DIR = 20									    # GPIO pin for Direction (Digital)
 STEP = 18										# GPIO pin for Step Output (PWM)
 CW = 1
