@@ -16,7 +16,7 @@ GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
 GPIO.setup(STEP, GPIO.OUT)					   # Initialization of Step Output Pin
 
 p = GPIO.PWM(STEP,1) 						   # Initializing the GPIO pin to output PWM signal
-p.start(50)  								   # Starting the motor with 100% duty cycle	
+p.start(50)  								   # Starting the motor with 50% duty cycle	
 
 
 def callback(data):

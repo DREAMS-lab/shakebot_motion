@@ -37,6 +37,7 @@ def talker():
     freq_max = 2 * pulse_per_sec
     #rospy.loginfo(speed_rpm)
     #rospy.loginfo(pulse_per_sec)
+    rospy.loginfo(freq_max)
 
     # while not rospy.is_shutdown():
     #     if t < T:
