@@ -21,14 +21,14 @@ steps = 0
 left = GPIO.input(LEFT)                                        
 right = GPIO.input(RIGHT)
 
-GPIO.output(DIR,CCW)
-while(left==0):
-    GPIO.output(STEP, GPIO.HIGH)
-    sleep(delay)
-    GPIO.output(STEP, GPIO.LOW)
-    sleep(delay)
-    left = GPIO.input(LEFT)                                        
-    right = GPIO.input(RIGHT)
+# GPIO.output(DIR,CCW)
+# while(left==0):
+#     GPIO.output(STEP, GPIO.HIGH)
+#     sleep(delay)
+#     GPIO.output(STEP, GPIO.LOW)
+#     sleep(delay)
+#     left = GPIO.input(LEFT)                                        
+#     right = GPIO.input(RIGHT)
 
 GPIO.output(DIR, CW)
 while(right==0):
@@ -39,20 +39,21 @@ while(right==0):
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
     steps = steps+1
+    print(right)
     
-position = int(input("Enter Desired Position of Bed (in %) :"))
+# position = int(input("Enter Desired Position of Bed (in %) :"))
 
-desired_step = int(steps * (position / 100))
+# desired_step = int(steps * (position / 100))
 
-GPIO.output(DIR,CCW)
-while(steps==desired_step):
-    GPIO.output(STEP, GPIO.HIGH)
-    sleep(delay)
-    GPIO.output(STEP, GPIO.LOW)
-    sleep(delay)
-    left = GPIO.input(LEFT)                                        
-    right = GPIO.input(RIGHT)
-    steps = steps-1
+# GPIO.output(DIR,CCW)
+# while not (steps==desired_step):
+#     GPIO.output(STEP, GPIO.HIGH)
+#     sleep(delay)
+#     GPIO.output(STEP, GPIO.LOW)
+#     sleep(delay)
+#     left = GPIO.input(LEFT)                                        
+#     right = GPIO.input(RIGHT)
+#     steps = steps-1
 
 
 GPIO.cleanup()
