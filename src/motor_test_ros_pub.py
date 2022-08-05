@@ -52,7 +52,7 @@ def talker():
     #         rospy.loginfo("Reached End of Motion")
     #         exit()
 
-    tim = 3
+    tim = 1
     while not rospy.is_shutdown():
         pub.publish(freq_max)
         sleep(tim)
