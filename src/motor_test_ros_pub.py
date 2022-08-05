@@ -35,8 +35,8 @@ def talker():
     #rospy.loginfo(freq_max)
     
     freq_max = 2 * pulse_per_sec
-    rospy.loginfo(speed_rpm)
-    rospy.loginfo(pulse_per_sec)
+    #rospy.loginfo(speed_rpm)
+    #rospy.loginfo(pulse_per_sec)
 
     # while not rospy.is_shutdown():
     #     if t < T:
@@ -51,12 +51,11 @@ def talker():
     #         rospy.loginfo("Reached End of Motion")
     #         exit()
 
-    tim = 0.1
+    tim = 3
     while not rospy.is_shutdown():
         pub.publish(freq_max)
         sleep(tim)
-        pub.publish(freq_max)
-        sleep(tim)
+        pub.publish(4001)
 
 
 if __name__ == '__main__':
