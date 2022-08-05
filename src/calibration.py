@@ -4,7 +4,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 LEFT = 17
-RIGHT = 27
+RIGHT = 13
 DIR = 20									    # GPIO pin for Direction (Digital)
 STEP = 18										# GPIO pin for Step Output (PWM)
 CW = 1
@@ -15,32 +15,44 @@ GPIO.setup(LEFT, GPIO.IN)                      #
 GPIO.setup(RIGHT,GPIO.IN)                      # 
 GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
 GPIO.setup(STEP, GPIO.OUT)	                   # Initialization of Step Output Pin
+delay = 0.001
 
-p = GPIO.PWM(STEP,1) 						   # Initializing the GPIO pin to output PWM signal
-p.start(50)  								   # Starting the motor with 50% duty cycle
-
-left_steps = 0
+steps = 0
 left = GPIO.input(LEFT)                                        
 right = GPIO.input(RIGHT)
 
+GPIO.output(DIR,CCW)
 while(left==0):
-    GPIO.output(DIR, CCW)
-    p.ChangeFrequency(2457.4221)               # Velocity Capped at 0.1 m/s
+    GPIO.output(STEP, GPIO.HIGH)
+    sleep(delay)
+    GPIO.output(STEP, GPIO.LOW)
+    sleep(delay)
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
-    left_step = step+1
 
-p.ChangeDutyCycle(0)
-
+GPIO.output(DIR, CW)
 while(right==0):
-    GPIO.output(DIR, CW)
-    p.ChangeFrequency(2457.4221)               # Velocity Capped at 0.1 m/s
-    p.ChangeDutyCycle(50)
+    GPIO.output(STEP, GPIO.HIGH)
+    sleep(delay)
+    GPIO.output(STEP, GPIO.LOW)
+    sleep(delay)
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
-    right_step = step+1
+    steps = steps+1
     
+position = int(input("Enter Desired Position of Bed (in %) :"))
 
+desired_step = int(steps * (position / 100))
+
+GPIO.output(DIR,CCW)
+while(steps==desired_step):
+    GPIO.output(STEP, GPIO.HIGH)
+    sleep(delay)
+    GPIO.output(STEP, GPIO.LOW)
+    sleep(delay)
+    left = GPIO.input(LEFT)                                        
+    right = GPIO.input(RIGHT)
+    steps = steps-1
 
 
 GPIO.cleanup()
