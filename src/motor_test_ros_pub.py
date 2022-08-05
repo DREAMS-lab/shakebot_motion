@@ -28,7 +28,6 @@ def talker():
     # if(speed_rpm>1200):
     #     rospy.loginfo("Speed is too high...! Exiting...!")
     #     exit()
-    speed_rpm = 300
 
     pulse_per_sec = speed_rpm * 10  / ((1.8/360) * 60)      # Pulses per Second = RPM * 360 * 360 / (Pulse/Rev * 60)
     
