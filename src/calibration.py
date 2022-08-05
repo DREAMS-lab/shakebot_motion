@@ -24,7 +24,7 @@ left = GPIO.input(LEFT)
 right = GPIO.input(RIGHT)
 
 while(left==0):
-    GPIO.output(DIR, CW)
+    GPIO.output(DIR, CCW)
     p.ChangeFrequency(2457.4221)               # Velocity Capped at 0.1 m/s
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
@@ -33,7 +33,7 @@ while(left==0):
 p.ChangeDutyCycle(0)
 
 while(right==0):
-    GPIO.output(DIR, CCW)
+    GPIO.output(DIR, CW)
     p.ChangeFrequency(2457.4221)               # Velocity Capped at 0.1 m/s
     p.ChangeDutyCycle(50)
     left = GPIO.input(LEFT)                                        
