@@ -26,6 +26,8 @@ The wiring diagram is as follows : [Wiring Diagram](https://github.com/DREAMS-la
 | 17 | 11 | Primary Left Limit Switch |
 | 5 | 29 | Primary Right Limit Switch |
 
+The following picture shows the PIN configuration of the Raspberry Pi : ![Raspberry Pi PIN Configuration](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Raspberry%20Pi%20GPIO%20Pins.png)
+
 
 **DIP Switch Configuration**
 
