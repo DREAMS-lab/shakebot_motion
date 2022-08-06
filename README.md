@@ -11,11 +11,20 @@ The circuit consists of four main components which are:
 - [Motor Driver](https://bit.ly/shake_table_motor_driver)
 - [Raspberry Pi](https://bit.ly/Raspberry_Pi_4)
 
-The wiring diagram can be referred ![here](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
-It also consists of a test setup which shows actual photos from the prototype
+The wiring diagram is as follows : [Wiring Diagram](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
+
 
 **Raspberry Pi PINS Configuration**
 
+| GPIO PIN Number  | BOARD PIN Number | Description |
+| --------------- | --------------- | --------------- |
+| 18 | 12 | PUL+ PIN in Motor Driver |
+| GND | 14 | PUL- PIN in Motor Driver |
+| 20 | 38 | DIR+ PIN in Motor Driver |
+| GND | 39 | DIR- PIN in Motor Driver |
+| 3V | 1 | Supply to both Primary Limit Switchs |
+| 17 | 11 | Primary Left Limit Switch |
+| 5 | 29 | Primary Right Limit Switch |
 
 
 **DIP Switch Configuration**
