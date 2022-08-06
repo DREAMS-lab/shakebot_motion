@@ -73,6 +73,6 @@ Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly
 
 [Power Supply Manual](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Power%20Supply%20Manual.pdf)
 
-[Windows Debugging Software for Motor Driver](https://bit.ly/shake_table_windows_debug_software)
+[Windows Debugging Software for Motor Driver](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/STEPPERONLINE_v2.0.0.exe)
 
-[Debugging Software Manual](https://bit.ly/shake_table_debugging_software_manual)
+[Debugging Software Manual](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Software%20Manual.pdf)
