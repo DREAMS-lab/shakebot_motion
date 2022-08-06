@@ -18,8 +18,6 @@ def talker():
     t=0
 
     linear_vel = float(input("Enter the linear velocity: "))
-
-    pulse_rev = 2000                                            # Number of pulses per revolution
     
     hub_dia = 51.812 / 1000                                     # Pulley With Belt 48.51mm (Pulley Diameter) + 2 * 1.651mm (Thickness of Belt)= 51.812mm
     
@@ -29,12 +27,12 @@ def talker():
     #     rospy.loginfo("Speed is too high...! Exiting...!")
     #     exit()
 
-    pulse_per_sec = speed_rpm * 10  / ((1.8/360) * 60)      # Pulses per Second = RPM * 360 * 360 / (Pulse/Rev * 60)
+    pulse_per_sec = speed_rpm  / ((1.8/360) * 60)      # Pulses per Second = RPM * 360 * 360 / (Pulse/Rev * 60)
     
     #rospy.loginfo(speed_rpm)
     #rospy.loginfo(freq_max)
     
-    freq_max = 2 * pulse_per_sec
+    freq_max = 20 * pulse_per_sec
     #rospy.loginfo(speed_rpm)
     #rospy.loginfo(pulse_per_sec)
     rospy.loginfo(freq_max)
