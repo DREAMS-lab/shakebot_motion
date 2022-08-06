@@ -96,6 +96,12 @@ Hub Diameter = Diameter of Pulley + 2*Thickness of Belt
 
 Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM to ensure longevity of the motor. So, if the velocity is higher than 1200 RPM, the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) will terminate.
 
+## Precautions to be taken before and whilst operation ##
+
+- Keep the manual Kill-Switch at reach and away from the apparatus so that it can be activated when needed. 
+- Always check the wiring to all the ports are properly connected before turning on the apparatus. 
+
+
 ## Links to Manuals and Software
 
 [Information on Circuit Diagram and Setup Process](https://bit.ly/shake_table_control_doc)

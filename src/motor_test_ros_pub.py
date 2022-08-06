@@ -23,9 +23,9 @@ def talker():
     
     speed_rpm = linear_vel * 60 / (hub_dia/2)  / (2*math.pi)                 # Revolutions per Minute || Angular Velocity = Linear Velocity / Radius of Hub
 
-    # if(speed_rpm>1200):
-    #     rospy.loginfo("Speed is too high...! Exiting...!")
-    #     exit()
+    if(speed_rpm>1200):
+        rospy.loginfo("Speed is too high...! Exiting...!")
+        exit()
 
     pulse_per_sec = speed_rpm  / ((1.8/360) * 60)      # Pulses per Second = RPM * 360 * 360 / (Pulse/Rev * 60)
     
