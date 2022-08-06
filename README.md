@@ -11,12 +11,12 @@ The circuit consists of four main components which are:
 - [Motor Driver](https://bit.ly/shake_table_motor_driver)
 - [Raspberry Pi](https://bit.ly/Raspberry_Pi_4)
 
-The wiring diagram can be referred [here](https://bit.ly/shake_table_control_doc) in Page 1 Section 1.
+The wiring diagram can be referred [here](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
 It also consists of a test setup which shows actual photos from the prototype
 
 **DIP Switch Configuration**
 
-The DIP Switches on the Motor Driver allows us to change the value for Pulses per Revolution, it the number of pulses required to complete one revolution. The default value is set to 2000 to match with [Stepper Motor Torque Curve](https://bit.ly/shake_table_torque_curve). If you intend to change it, please change the same in the [Publisher Node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) in line #22 also.
+The DIP Switches on the Motor Driver allows us to change the value for Pulses per Revolution, it the number of pulses required to complete one revolution. The default value is set to 2000 to match with [Stepper Motor Torque Curve](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Stepper%20Motor%20Torque%20Curve.pdf). If you intend to change it, please change the same in the [Publisher Node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) in line #22 also.
 
 **Please ensure that proper grouding is done to the components to reduce risk of electrical shocking**
 
@@ -65,13 +65,13 @@ Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly
 
 [Motor and Motor-Driver Product Page](https://bit.ly/shake_table_motor_driver)
 
-[Motor-Driver Manual](https://bit.ly/shake_table_motor_driver_manual)
+[Motor-Driver Manual](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Motor-Driver%20Manual.pdf)
 
-[Stepper Motor Data Sheet](https://bit.ly/shake_table_stepper_data_sheet)
+[Stepper Motor Data Sheet](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Stepper%20Motor%20Data%20Sheet.pdf)
 
-[Stepper Motor Torque Curve](https://bit.ly/shake_table_torque_curve)
+[Stepper Motor Torque Curve](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Stepper%20Motor%20Torque%20Curve.pdf)
 
-[Power Supply Manual](https://bit.ly/shake_table_power_supply_manual)
+[Power Supply Manual](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Power%20Supply%20Manual.pdf)
 
 [Windows Debugging Software for Motor Driver](https://bit.ly/shake_table_windows_debug_software)
 
