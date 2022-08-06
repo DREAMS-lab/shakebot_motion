@@ -11,7 +11,7 @@ The circuit consists of four main components which are:
 - [Motor Driver](https://bit.ly/shake_table_motor_driver)
 - [Raspberry Pi](https://bit.ly/Raspberry_Pi_4)
 
-The wiring diagram is as follows : [Wiring Diagram](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
+The wiring diagram is as follows : ![Wiring Diagram](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
 
 
 **Raspberry Pi PINS Configuration**
