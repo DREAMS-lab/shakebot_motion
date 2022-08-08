@@ -33,6 +33,18 @@ The circuit consists of four main components which are:
 
 The DIP Switches on the Motor Driver allows us to change the value for Pulses per Revolution, it the number of pulses required to complete one revolution. The default value is set to 2000 to match with [Stepper Motor Torque Curve](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Stepper%20Motor%20Torque%20Curve.pdf).
 
+![DIP Switch Configuration](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Dip_Switch.png)
+
+The Default Configuration is as follows:
+|DIP Switch Number|Position|
+|---------------|---------------|
+|SW1|OFF|
+|SW2|ON|
+|SW3|ON|
+|SW4|OFF|
+|SW5|ON|
+|SW6|ON|
+
 **RS232 Communication Port**
 
 There is a RS232 Communication Port present on the Motor Driver which helps us to connect the driver to the a Windows computer to use the [Debugging software](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/STEPPERONLINE_v2.0.0.exe). The manual for the software is available [here](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Software%20Manual.pdf).
