@@ -98,9 +98,8 @@ Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly
 
 ## Precautions to be taken before and whilst operation ##
 
-- Keep the manual Kill-Switch at reach and away from the apparatus so that it can be activated when needed. 
-- Always check the wiring to all the ports are properly connected before turning on the apparatus. 
-
+- Keep the manual Kill-Switch at reach and away from the apparatus so that it can be activated when needed.
+- Always check the wiring to all the ports are properly connected before turning on the apparatus.
 
 ## Links to Manuals and Software
 
