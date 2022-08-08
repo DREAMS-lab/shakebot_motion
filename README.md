@@ -11,7 +11,7 @@ The circuit consists of four main components which are:
 - [Motor Driver](https://bit.ly/shake_table_motor_driver)
 - [Raspberry Pi](https://bit.ly/Raspberry_Pi_4)
 
-The wiring diagram is as follows : ![Wiring Diagram](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
+**Wiring Diagram** : ![Wiring Diagram](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Circuit%20Diagram.jpg).
 
 
 **Raspberry Pi PINS Configuration**
@@ -26,7 +26,7 @@ The wiring diagram is as follows : ![Wiring Diagram](https://github.com/DREAMS-l
 | 17 | 11 | Primary Left Limit Switch |
 | 5 | 29 | Primary Right Limit Switch |
 
-The following picture shows the PIN configuration of the Raspberry Pi : ![Raspberry Pi PIN Configuration](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Raspberry%20Pi%20GPIO%20Pins.png)
+**Raspberry Pi PIN Diagram** : ![Raspberry Pi PIN Configuration](https://github.com/DREAMS-lab/shakebot_motion/blob/master/assets/Raspberry%20Pi%20GPIO%20Pins.png)
 
 
 **DIP Switch Configuration**
