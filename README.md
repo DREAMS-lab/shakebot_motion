@@ -44,6 +44,8 @@ The Default Configuration is as follows:
 |SW4|OFF|
 |SW5|ON|
 |SW6|ON|
+|SW7|ON|
+|SW8|ON|
 
 **RS232 Communication Port**
 

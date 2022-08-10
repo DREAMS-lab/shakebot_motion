@@ -2,6 +2,7 @@
 
 from time import sleep
 import RPi.GPIO as GPIO
+import csv
 
 LEFT = 17
 RIGHT = 5
@@ -17,45 +18,69 @@ GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
 GPIO.setup(STEP, GPIO.OUT)	                   # Initialization of Step Output Pin
 delay = 0.001
 
-steps = 0
-left = GPIO.input(LEFT)                                        
-right = GPIO.input(RIGHT)
-
-# GPIO.output(DIR,CCW)
-# while(left==0):
-#     GPIO.output(STEP, GPIO.HIGH)
-#     sleep(delay)
-#     GPIO.output(STEP, GPIO.LOW)
-#     sleep(delay)
-#     left = GPIO.input(LEFT)                                        
-#     right = GPIO.input(RIGHT)
-
-GPIO.output(DIR, CW)
-while(right==0):
-    GPIO.output(STEP, GPIO.HIGH)
-    sleep(delay)
-    GPIO.output(STEP, GPIO.LOW)
-    sleep(delay)
+def calibrate():
+    steps = 0
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
-    steps = steps+1
-    print(right)
+
+    # GPIO.output(DIR,CCW)
+    # while(left==0):
+    #     GPIO.output(STEP, GPIO.HIGH)
+    #     sleep(delay)
+    #     GPIO.output(STEP, GPIO.LOW)
+    #     sleep(delay)
+    #     left = GPIO.input(LEFT)                                        
+    #     right = GPIO.input(RIGHT)
+
+    GPIO.output(DIR, CW)
+    while(right==0):
+        GPIO.output(STEP, GPIO.HIGH)
+        sleep(delay)
+        GPIO.output(STEP, GPIO.LOW)
+        sleep(delay)
+        left = GPIO.input(LEFT)                                        
+        right = GPIO.input(RIGHT)
+        steps = steps+1
+        print(right)
+        
+    # position = int(input("Enter Desired Position of Bed (in %) :"))
+
+    # desired_step = int(steps * (position / 100))
+
+    # GPIO.output(DIR,CCW)
+    # while not (steps==desired_step):
+    #     GPIO.output(STEP, GPIO.HIGH)
+    #     sleep(delay)
+    #     GPIO.output(STEP, GPIO.LOW)
+    #     sleep(delay)
+    #     left = GPIO.input(LEFT)                                        
+    #     right = GPIO.input(RIGHT)
+    #     steps = steps-1
+
+if __name__ == '__main__':
     
-# position = int(input("Enter Desired Position of Bed (in %) :"))
+    file = open('Parameters.csv')
+    type(file)
+    csvreader = csv.reader(file)
+    rows=[]
+    for row in csvreader:
+        rows.append(row)
 
-# desired_step = int(steps * (position / 100))
-
-# GPIO.output(DIR,CCW)
-# while not (steps==desired_step):
-#     GPIO.output(STEP, GPIO.HIGH)
-#     sleep(delay)
-#     GPIO.output(STEP, GPIO.LOW)
-#     sleep(delay)
-#     left = GPIO.input(LEFT)                                        
-#     right = GPIO.input(RIGHT)
-#     steps = steps-1
-
-
-GPIO.cleanup()
+    for i in range(0,len(rows)):
+        if(rows[i][0]=="LEFT"):
+            LEFT = rows[i][1]
+        if(rows[i][0]=="RIGHT"):
+            RIGHT = rows[i][1]
+        if(rows[i][0]=="DIR"):
+            DIR = rows[i][1]
+        if(rows[i][0]=="STEP"):
+            STEP = rows[i][1]
+        if(rows[i][0]=="Hub_Diameter"):
+            hub_dia = rows[i][1]
+        if(rows[i][0]=="step_angle"):
+            step_angle = rows[i][1]
+    
+    calibrate()
+    GPIO.cleanup()
 
 	
