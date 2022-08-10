@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from Calibration import LEFT, RIGHT
 import rospy
 from std_msgs.msg import Float64
 import math
@@ -7,13 +8,14 @@ from time import sleep
 import RPi.GPIO as GPIO
 import csv
 
+LEFT = 17
+RIGHT = 5
 DIR = 20									    # GPIO pin for Direction (Digital)
 STEP = 18										# GPIO pin for Step Output (PWM)
 CW = 1
 CCW = 0
 hub_dia = 51.812
 step_angle = 1.8
-
 
 GPIO.setmode(GPIO.BCM)						   # Initialization of GPIO pins in BCM(Broadcom SOC mode) 
 GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
@@ -22,11 +24,12 @@ GPIO.setup(STEP, GPIO.OUT)					   # Initialization of Step Output Pin
 p = GPIO.PWM(STEP,1) 						   # Initializing the GPIO pin to output PWM signal
 p.start(50)  
 
-def callback(data):
-
-    linear_vel = data.data
+def callback1(data):
+    #print(data.data)
+    global hub_dia
     
-    hub_dia = hub_dia / 1000                                     # Pulley With Belt 48.51mm (Pulley Diameter) + 2 * 1.651mm (Thickness of Belt)= 51.812mm
+    linear_vel = data.data
+                                        # Pulley With Belt 48.51mm (Pulley Diameter) + 2 * 1.651mm (Thickness of Belt)= 51.812mm
     
     speed_rpm = linear_vel * 60 / (hub_dia/2)  / (2*math.pi)                 # Revolutions per Minute || Angular Velocity = Linear Velocity / Radius of Hub
 
@@ -48,7 +51,8 @@ def callback(data):
         rospy.signal_shutdown("Stopping")
 
 def callback2(data):
-    if(data.data==1):
+    #print(data.data)
+    if(int(data.data)==1):
         rospy.loginfo("Ending Motion")
         rospy.signal_shutdown("Stopping")
         
@@ -56,8 +60,8 @@ def callback2(data):
 def motorcnt():
 	
     rospy.init_node('Velocity_Subscriber', anonymous=True)	# Initialization of Node
-    rospy.Subscriber("Velocity", Float64, callback, queue_size=100, buff_size=160*1024)  # Subscribing to the topic "Frequency"
-    rospy.Subscriber("Motion_Status", int, callback2)  # Subscribing to the topic "Frequency"
+    rospy.Subscriber("Velocity", Float64, callback1, queue_size=100, buff_size=160*1024)  # Subscribing to the topic "Frequency"
+    rospy.Subscriber("MotionStatus", Float64, callback2)
 
     if rospy.is_shutdown():
         exit()  
@@ -72,23 +76,30 @@ if __name__ == '__main__':
     csvreader = csv.reader(file)
     rows=[]
     for row in csvreader:
-        rows.append(row)
+            rows.append(row)
+            
+    #global LEFT
+    #global RIGHT
+    #global DIR
+    #global STEP
+    #global hub_dia
+    #global step_angle
 
     for i in range(0,len(rows)):
         if(rows[i][0]=="LEFT"):
-            LEFT = rows[i][1]
+            LEFT = int(rows[i][1])
         if(rows[i][0]=="RIGHT"):
-            RIGHT = rows[i][1]
+            RIGHT = int(rows[i][1])
         if(rows[i][0]=="DIR"):
-            DIR = rows[i][1]
+            DIR = int(rows[i][1])
         if(rows[i][0]=="STEP"):
-            STEP = rows[i][1]
+            STEP = int(rows[i][1])
         if(rows[i][0]=="Hub_Diameter"):
-            hub_dia = rows[i][1]
+            hub_dia = float(rows[i][1])
         if(rows[i][0]=="Step_angle"):
-            step_angle = rows[i][1]
-
-    print(LEFT,RIGHT,DIR,STEP,hub_dia,step_angle)
+            step_angle = float(rows[i][1])
+    
+    hub_dia = hub_dia/1000
 
     motorcnt()
     file.close()
