@@ -8,8 +8,8 @@ from time import sleep
 import RPi.GPIO as GPIO
 import csv
 
-LEFT = 17
-RIGHT = 5
+LEFT = 27
+RIGHT = 17
 DIR = 20									    # GPIO pin for Direction (Digital)
 STEP = 18										# GPIO pin for Step Output (PWM)
 CW = 1

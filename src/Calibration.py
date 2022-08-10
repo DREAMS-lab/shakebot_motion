@@ -4,8 +4,8 @@ from time import sleep
 import RPi.GPIO as GPIO
 import csv
 
-LEFT = 17
-RIGHT = 5
+LEFT = 27
+RIGHT = 17
 DIR = 20									    # GPIO pin for Direction (Digital)
 STEP = 18										# GPIO pin for Step Output (PWM)
 CW = 1
@@ -22,7 +22,9 @@ def calibrate():
     steps = 0
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
-
+    
+    print(right)
+    print(left)
     # GPIO.output(DIR,CCW)
     # while(left==0):
     #     GPIO.output(STEP, GPIO.HIGH)
@@ -32,16 +34,16 @@ def calibrate():
     #     left = GPIO.input(LEFT)                                        
     #     right = GPIO.input(RIGHT)
 
-    GPIO.output(DIR, CW)
-    while(right==0):
-        GPIO.output(STEP, GPIO.HIGH)
-        sleep(delay)
-        GPIO.output(STEP, GPIO.LOW)
-        sleep(delay)
-        left = GPIO.input(LEFT)                                        
-        right = GPIO.input(RIGHT)
-        steps = steps+1
-        print(right)
+    # GPIO.output(DIR, CW)
+    # while(right==0):
+    #     GPIO.output(STEP, GPIO.HIGH)
+    #     sleep(delay)
+    #     GPIO.output(STEP, GPIO.LOW)
+    #     sleep(delay)
+    #     left = GPIO.input(LEFT)                                        
+    #     right = GPIO.input(RIGHT)
+    #     steps = steps+1
+    #     print(right)
         
     # position = int(input("Enter Desired Position of Bed (in %) :"))
 
@@ -59,28 +61,45 @@ def calibrate():
 
 if __name__ == '__main__':
     
-    file = open('Parameters.csv')
-    type(file)
-    csvreader = csv.reader(file)
-    rows=[]
-    for row in csvreader:
-        rows.append(row)
-
-    for i in range(0,len(rows)):
-        if(rows[i][0]=="LEFT"):
-            LEFT = rows[i][1]
-        if(rows[i][0]=="RIGHT"):
-            RIGHT = rows[i][1]
-        if(rows[i][0]=="DIR"):
-            DIR = rows[i][1]
-        if(rows[i][0]=="STEP"):
-            STEP = rows[i][1]
-        if(rows[i][0]=="Hub_Diameter"):
-            hub_dia = rows[i][1]
-        if(rows[i][0]=="step_angle"):
-            step_angle = rows[i][1]
+    while(1):
     
-    calibrate()
+        left = GPIO.input(LEFT)                                        
+        right = GPIO.input(RIGHT)
+        
+        print("Left",left)
+        print("Right",right)  
+        print("\n")  
+        
+        GPIO.output(STEP, GPIO.HIGH)
+        sleep(delay)
+        GPIO.output(STEP, GPIO.LOW)
+        sleep(delay)
+        
+        if(right == 1 or left == 1):
+            break
+
+    # file = open('Parameters.csv')
+    # type(file)
+    # csvreader = csv.reader(file)
+    # rows=[]
+    # for row in csvreader:
+    #     rows.append(row)
+
+    # for i in range(0,len(rows)):
+    #     if(rows[i][0]=="LEFT"):
+    #         LEFT = int(rows[i][1])
+    #     if(rows[i][0]=="RIGHT"):
+    #         RIGHT = int(rows[i][1])
+    #     if(rows[i][0]=="DIR"):
+    #         DIR = int(rows[i][1])
+    #     if(rows[i][0]=="STEP"):
+    #         STEP = int(rows[i][1])
+    #     if(rows[i][0]=="Hub_Diameter"):
+    #         hub_dia = rows[i][1]
+    #     if(rows[i][0]=="step_angle"):
+    #         step_angle = rows[i][1]
+    
+    #calibrate()
     GPIO.cleanup()
 
 	
