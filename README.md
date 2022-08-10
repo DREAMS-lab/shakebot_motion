@@ -55,11 +55,21 @@ There is a RS232 Communication Port present on the Motor Driver which helps us t
 
 Currently we have implemented three safety switches into the circuit, which act as fail-safe mechanisms to prevent injury to users and damage to the equipment. 
 
-- The automated software fail-safe switches are two primart limit switches on either side of the bed, which moitors if the bed reaches the extreme limits. If one of the switch is activated, if shuts downs the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_sub.py) which inturn stops the motor. But, this switch does not disable the motor, it only stops the motor, which means the motor is still powered. 
-- The next fail-safe switches are two secondary limit switches on either side of the bed which prevents the bed from hitting the frame. These are Normally Closes (NC) switches, so upon contact they break the signal to ENA+ port on the motor driver there by stopping the motor and disabling it, (i.e.) the power to the motor is cut off.
+- The fail-safe switches are two limit switches on either side of the bed which prevents the bed from hitting the frame. These are Normally Closes (NO) switches, so upon contact they activate the signal to ENA+ port on the motor driver there by stopping the motor and disabling it, (i.e.) the power to the motor is cut off.
 - The Manual Kill Switch is also provided which will serve as the last line of safety to kill the whole circuit. In this case the switch is a Normally Closed (NC) switch and is connected in between the power supply and the motor driver. So, upon activation the circuit breaks and the supply to the motor driver is cut and the motor is disabled. 
 
 **Please ensure that proper grouding is done to the components to reduce risk of electrical shocking**
+## Parameters Setup
+
+The system has various parameters that be modified by the user. For example the GPIO pins, the Hub Diameter and Step Angle can be changed. Since the GPIO pins can be changed, the user needs to update the same in the [Parameters.csv](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Parameters.csv) file. Similarly the Hub Diameter may change if the user decided to use a different belt or hub, so the same had to be updated in the [Parameters.csv](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Parameters.csv) file.
+## Calibration
+
+The system has a self calibration procedure which will help the user to position bed in the desired postion. In order to carry out the calibration the user must follow the following commands in the terminal:
+```
+cd ~/catkin_ws/src/shakebot_motion/src
+python3 Calibration.py
+```
+This will make the bed to move from one end to other end and calibrate the system. Thereafter it will require the user to input the desired position of the bed, the user has to enter in terms of percentage. So the bed will move that cerain percentage from the end where it is. So for example, if the bed is at the right end and the user enters 20%, then the bed will move 20% of the total length towards right side.
 
 ## ROS Package Setup and Code Brief
 
@@ -67,7 +77,7 @@ Currently we have implemented three safety switches into the circuit, which act 
 
 Requirements: [Ubuntu 20.04 LTS](https://bit.ly/Ubuntu_Install), [ROS Noetic](https://bit.ly/ROS_Install), [Python3](https://bit.ly/Python3_Install)
 
-Please follow the below steps to setup the ROS package. 
+Please follow the below steps to setup the ROS package.
 
 ```
 mkdir -p ~/catkin_ws/src
@@ -84,15 +94,15 @@ In the First Terminal, run the following command:
 ```
 roscore
 ```
-In the Second Terminal, run the following command, this will launch the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_sub.py) and will be waiting for the publisher node to publish the frequency.
+In the Second Terminal, run the following command, this will launch the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Velocity_Subcriber.py) and will be waiting for the publisher node to publish the frequency.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src
-python3 motor_test_ros_sub.py
+python3 Velocity_Publisher.py
 ```
-In the Third Terminal, run the following command, this will launch the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
+In the Third Terminal, run the following command, this will launch the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Velocity_Publisher.py) and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src 
-python3 motor_test_ros_pub.py
+python3 Velocity_Publisher.py
 ```
 **Formulation for Frequecncy Calculation :**
 
