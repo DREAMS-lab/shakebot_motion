@@ -53,6 +53,7 @@ def callback1(data):
 def callback2(data):
     #print(data.data)
     if(int(data.data)==1):
+        
         rospy.loginfo("Ending Motion")
         rospy.signal_shutdown("Stopping")
         

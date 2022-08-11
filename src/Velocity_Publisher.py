@@ -16,7 +16,7 @@ def talker():
     rate = rospy.Rate(200)                                         # Rate of publishing the data
     
     pub2.publish(0)
-    velocity_max = 0.1
+    velocity_max = 0.00000001
 
     t=0
     T=500
@@ -30,9 +30,9 @@ def talker():
         
         if (t==T):
             t=0
-            #pub2.publish(1)
-            #rospy.loginfo("Reached End of Motion")
-            #exit()
+            # pub2.publish(1)
+            # rospy.loginfo("Reached End of Motion")
+            # exit()
     
     
 if __name__ == '__main__':
