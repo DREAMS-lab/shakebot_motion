@@ -23,8 +23,8 @@ def calibrate():
     left = GPIO.input(LEFT)                                        
     right = GPIO.input(RIGHT)
     
-    GPIO.output(DIR,CCW)
     while(left==0):
+        GPIO.output(DIR,CCW)
         GPIO.output(STEP, GPIO.HIGH)
         sleep(delay)
         GPIO.output(STEP, GPIO.LOW)
@@ -32,8 +32,9 @@ def calibrate():
         left = GPIO.input(LEFT)                                        
         right = GPIO.input(RIGHT)
 
-    GPIO.output(DIR, CW)
+    
     while(right==0):
+        GPIO.output(DIR, CW)
         GPIO.output(STEP, GPIO.HIGH)
         sleep(delay)
         GPIO.output(STEP, GPIO.LOW)
@@ -41,7 +42,6 @@ def calibrate():
         left = GPIO.input(LEFT)                                        
         right = GPIO.input(RIGHT)
         steps = steps+1
-        print(right)
         
     position = int(input("Enter Desired Position of Bed (in %) :"))
 
@@ -59,23 +59,6 @@ def calibrate():
 
 if __name__ == '__main__':
     
-    # while(1):
-    
-    #     left = GPIO.input(LEFT)                                        
-    #     right = GPIO.input(RIGHT)
-        
-    #     print("Left",left)
-    #     print("Right",right)  
-    #     print("\n")  
-        
-    #     GPIO.output(STEP, GPIO.HIGH)
-    #     sleep(delay)
-    #     GPIO.output(STEP, GPIO.LOW)
-    #     sleep(delay)
-        
-    #     if(right == 1 or left == 1):
-    #         break
-
     file = open('Parameters.csv')
     type(file)
     csvreader = csv.reader(file)

@@ -17,11 +17,19 @@ CCW = 0
 hub_dia = 51.812
 step_angle = 1.8
 
+GPIO.setmode(GPIO.BCM)						   # Initialization of GPIO pins in BCM(Broadcom SOC mode) 
+GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
+GPIO.setup(STEP, GPIO.OUT)					   # Initialization of Step Output Pin
+
+p = GPIO.PWM(STEP,1) 						   # Initializing the GPIO pin to output PWM signal
+p.start(50)  
+
 def callback1(data):
     #print(data.data)
     global hub_dia
     
     linear_vel = data.data
+                                        # Pulley With Belt 48.51mm (Pulley Diameter) + 2 * 1.651mm (Thickness of Belt)= 51.812mm
     
     speed_rpm = linear_vel * 60 / (hub_dia/2)  / (2*math.pi)                 # Revolutions per Minute || Angular Velocity = Linear Velocity / Radius of Hub
 
@@ -34,22 +42,27 @@ def callback1(data):
     else:
         GPIO.output(DIR, CCW)
 	
-    if(abs(freq_max)>0 and abs(freq_max)!=0.0):					   # To Publish the frequency of motor through the GPIO pin
+    if(abs(freq_max)>0 and abs(freq_max)!=4001):					   # To Publish the frequency of motor through the GPIO pin
         p.ChangeFrequency(abs(freq_max)) 
 		#print(data.data)
-    
-    elif(abs(freq_max)==0.0):           # To stop the motor upon completion of the motion
-        p.ChangeFrequency(0.0)
 	
-    if(speed_rpm)>=1200: 					   
+    if(speed_rpm)>=1200: 					   # To stop the motor upon completion of the motion
         rospy.loginfo("Speed is too high...! Exiting...!")
         rospy.signal_shutdown("Stopping")
 
+def callback2(data):
+    #print(data.data)
+    if(int(data.data)==1):
+        
+        rospy.loginfo("Ending Motion")
+        rospy.signal_shutdown("Stopping")
+        
 
 def motorcnt():
 	
     rospy.init_node('Velocity_Subscriber', anonymous=True)	# Initialization of Node
     rospy.Subscriber("Velocity", Float64, callback1, queue_size=100, buff_size=160*1024)  # Subscribing to the topic "Frequency"
+    rospy.Subscriber("MotionStatus", Float64, callback2)
 
     if rospy.is_shutdown():
         exit()  
@@ -66,6 +79,13 @@ if __name__ == '__main__':
     for row in csvreader:
             rows.append(row)
             
+    #global LEFT
+    #global RIGHT
+    #global DIR
+    #global STEP
+    #global hub_dia
+    #global step_angle
+
     for i in range(0,len(rows)):
         if(rows[i][0]=="LEFT"):
             LEFT = int(rows[i][1])
@@ -79,18 +99,9 @@ if __name__ == '__main__':
             hub_dia = float(rows[i][1])
         if(rows[i][0]=="Step_angle"):
             step_angle = float(rows[i][1])
-
-        file.close()
     
     hub_dia = hub_dia/1000
 
-    GPIO.setmode(GPIO.BCM)						   # Initialization of GPIO pins in BCM(Broadcom SOC mode) 
-    GPIO.setup(DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
-    GPIO.setup(STEP, GPIO.OUT)					   # Initialization of Step Output Pin
-
-    p = GPIO.PWM(STEP,1) 						   # Initializing the GPIO pin to output PWM signal
-    p.start(50)  
-
     motorcnt()
-    
+    file.close()
     GPIO.cleanup()							   # Cleanup of GPIO pins whilst exiting the program
