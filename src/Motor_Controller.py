@@ -7,7 +7,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 import csv
 
-class motor_controller:
+class Motor_Controller:
     def __init__(self):
         self.file = open('Parameters.csv')
         type(self.file)
@@ -41,13 +41,10 @@ class motor_controller:
 
         self.p = GPIO.PWM(self.STEP,1) 						   # Initializing the GPIO pin to output PWM signal
         self.p.start(50) 
-
-    def motorcnt(self):
-        rospy.init_node('Velocity_Subscriber', anonymous=True)	# Initialization of Node
+        
         rospy.Subscriber("Velocity", Float64, self.callback, queue_size=100, buff_size=160*1024)
-        if rospy.is_shutdown():
-            exit()  
-        rospy.spin()
+
+
 
     def callback(self,msg):
         #print(msg.data)
@@ -59,23 +56,26 @@ class motor_controller:
         self.pulse_per_sec = self.speed_rpm  / ((self.step_angle/360) * 60)      # Pulses per Second = RPM * 360 * 360 / (Pulse/Rev * 60)
         
         self.freq_max = 20 * self.pulse_per_sec
-        
-        if(abs(msg.data)==100.0):           # To stop the motor upon completion of the motion
-            rospy.loginfo("Motion Ending")
-            self.p.stop()
-            rospy.signal_shutdown("Stopping")
-        
-        if(self.speed_rpm)>=1200:
-            self.p.ChangeDutyCycle(0) 					   
-            rospy.loginfo("Speed is too high...! Exiting...!")
-            rospy.signal_shutdown("Stopping")
 
         if(self.freq_max>0):						   # Condition to check the direciton of motor
             GPIO.output(self.DIR, self.CW)
         else:
             GPIO.output(self.DIR, self.CCW)
+            
         
-        if(abs(self.freq_max)>0):					   # To Publish the frequency of motor through the GPIO pin
+        if(abs(self.freq_max) <1):
+            self.p.ChangeDutyCycle(0)
+        else:
+            self.p.ChangeDutyCycle(50)
+            
+        if(self.speed_rpm)>=1200:
+            self.p.stop() 					   
+            rospy.loginfo("Speed is too high...! Exiting...!")
+            rospy.signal_shutdown("Stopping")
+
+
+        
+        if(abs(self.freq_max)>=1):					   # To Publish the frequency of motor through the GPIO pin
             self.p.ChangeFrequency(abs(self.freq_max)) 
             #print(self.freq_max)
         
@@ -83,9 +83,12 @@ class motor_controller:
 
 
 if __name__ == '__main__':
-
-    motor1 = motor_controller()
-
-    motor1.motorcnt()
-
+    rospy.init_node('Velocity_Subscriber', anonymous=False)	# Initialization of Node
+    motor1 = Motor_Controller()
+    
+    try:
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        rospy.loginfo("Node killed!")
+        
     GPIO.cleanup()

@@ -26,16 +26,20 @@ def talker():
             t=t+1
             velocity = round((velocity_max*math.sin(t/T*2*math.pi)),4)
             pub1.publish(velocity)
-        rate.sleep()
         
-        if (t==T):
+        
+        if (T<=t <= 2*T):
             #t=0
-            pub1.publish(100.0)
-            rate.sleep()
-            rospy.loginfo("Reached End of Motion")
-            exit()
+            pub1.publish(0.0)
+            t=t+1
         
-    
-    
+        if 2*T< t < 3*T:
+            t=t+1
+            velocity = round((velocity_max*math.sin(t/T*2*math.pi)),4)
+            pub1.publish(velocity)
+            
+        rate.sleep()
+            
+            
 if __name__ == '__main__':
         talker()

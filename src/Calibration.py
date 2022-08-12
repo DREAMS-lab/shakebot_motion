@@ -30,8 +30,9 @@ def calibrate():
         GPIO.output(STEP, GPIO.LOW)
         sleep(delay)
         left = GPIO.input(LEFT)                                        
-        right = GPIO.input(RIGHT)
+        #right = GPIO.input(RIGHT)
 
+    sleep(1)
     
     while(right==0):
         GPIO.output(DIR, CW)
@@ -39,7 +40,7 @@ def calibrate():
         sleep(delay)
         GPIO.output(STEP, GPIO.LOW)
         sleep(delay)
-        left = GPIO.input(LEFT)                                        
+        #left = GPIO.input(LEFT)                                        
         right = GPIO.input(RIGHT)
         steps = steps+1
         
