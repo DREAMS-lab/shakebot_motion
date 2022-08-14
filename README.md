@@ -61,7 +61,7 @@ Currently we have implemented three safety switches into the circuit, which act 
 **Please ensure that proper grouding is done to the components to reduce risk of electrical shocking**
 ## Parameters Setup
 
-The system has various parameters that be modified by the user. For example the GPIO pins, the Hub Diameter and Step Angle can be changed. Since the GPIO pins can be changed, the user needs to update the same in the [Parameters.csv](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Parameters.csv) file. Similarly the Hub Diameter may change if the user decided to use a different belt or hub, so the same had to be updated in the [Parameters.csv](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Parameters.csv) file.
+The system has various parameters that be modified by the user. For example the GPIO pins, the Hub Diameter and Step Angle can be changed. Since the GPIO pins can be changed, the user needs to update the same in the [Parameters.csv](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Parameters.csv) file. Similarly the Hub Diameter may change if the user decided to use a different belt or hub, so the same had to be updated in the [Parameters.csv](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Parameters.csv) file. Upon running the calibration file the total step for bed to translate from one end to other end will also be updated and the distance per unit step will also be updated.
 ## Calibration
 
 The system has a self calibration procedure which will help the user to position bed in the desired postion. In order to carry out the calibration the user must follow the following commands in the terminal:
@@ -94,10 +94,10 @@ In the First Terminal, run the following command:
 ```
 roscore
 ```
-In the Second Terminal, run the following command, this will launch the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Velocity_Subcriber.py) and will be waiting for the publisher node to publish the frequency.
+In the Second Terminal, run the following command, this will launch the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Motor_Controller.py) and will be waiting for the publisher node to publish the frequency.
 ```
 cd ~/catkin_ws/src/shakebot_motion/src
-python3 Velocity_Publisher.py
+python3 Motor_Controller.py
 ```
 In the Third Terminal, run the following command, this will launch the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Velocity_Publisher.py) and start publishing the frequency, so before you launch this file please take a look at the code to set the velocity and other parameters.
 ```
@@ -118,7 +118,7 @@ Hub Diameter = Diameter of Pulley + 2*Thickness of Belt
 
 ## Restrictions and Limitations
 
-Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM to ensure longevity of the motor. So, if the velocity is higher than 1200 RPM, the [publisher node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/motor_test_ros_pub.py) will terminate.
+Even though NEMA 34 motors can attain [maximum speed of 4000 RPM](https://bit.ly/motor_max_speed), we have limited it to 1200 RPM to ensure longevity of the motor. So, if the velocity is higher than 1200 RPM, the [subscriber node](https://github.com/DREAMS-lab/shakebot_motion/blob/master/src/Motor_Controller.py) will terminate.
 
 ## Precautions to be taken before and whilst operation ##
 

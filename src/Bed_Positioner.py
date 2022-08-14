@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 import csv
 
 
-class Motor_Calibrator: 
+class Motor_Positioner: 
 
     def __init__(self):   
 
@@ -29,6 +29,8 @@ class Motor_Calibrator:
                 self.hub_dia = float(self.rows[i][1])
             if(self.rows[i][0]=="Step_angle"):
                 self.step_angle = float(self.rows[i][1])
+            if(self.rows[i][0]=="Rail_Length"):
+                self.rail_length = float(self.rows[i][1])
 
         self.file.close()
 
@@ -44,8 +46,8 @@ class Motor_Calibrator:
         self.calibrate()
 
         for i in range(0,len(self.rows)):
-            if(self.rows[i][0]=="Total_Steps"):
-                self.rows[i][1] = self.total_steps
+            if(self.rows[i][0]=="Distance_Unit_Step"):
+                self.rows[i][1] = self.rail_length/self.total_steps
 
         self.file = open('Parameters.csv','w')             # To update the total steps in the csv file
         self.writer = csv.writer(self.file)
@@ -81,9 +83,10 @@ class Motor_Calibrator:
             self.steps = self.steps+1
         
         self.total_steps = self.steps
-        self.position = int(input("Enter Desired Position of Bed (in %) :"))
 
-        self.desired_step = int(self.steps * (self.position / 100))
+        self.position = int(input("Enter Desired Position of Bed from left end (in mm) :"))
+
+        self.desired_step = int((self.position/self.rail_length)*self.total_steps)
 
         GPIO.output(self.DIR,self.CCW)
         while not (self.steps==self.desired_step):
@@ -95,9 +98,11 @@ class Motor_Calibrator:
             self.right = GPIO.input(self.RIGHT)
             self.steps = self.steps-1
 
+        print("Bed Positioned at :",self.position,"mm from left end")
+
 if __name__ == '__main__':
         
-    motor_1 = Motor_Calibrator()
+    motor_1 = Motor_Positioner()
     GPIO.cleanup()
 
 	

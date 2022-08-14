@@ -83,6 +83,7 @@ class Motor_Controller:
 
 
 if __name__ == '__main__':
+    
     rospy.init_node('Velocity_Subscriber', anonymous=False)	# Initialization of Node
     motor1 = Motor_Controller()
     

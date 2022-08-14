@@ -10,7 +10,7 @@ import rospy
 from std_msgs.msg import String
 
 def talker():
-    rospy.init_node('Velocity_Publisher', anonymous=True)          # Initialization of Node
+    rospy.init_node('Velocity_Publisher', anonymous=False)          # Initialization of Node
     pub1 = rospy.Publisher("Velocity", Float64, queue_size=10)      # Publishing to the topic "Frequency"
     
     rate = rospy.Rate(200)                                         # Rate of publishing the data
