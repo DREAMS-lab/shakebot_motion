@@ -16,6 +16,9 @@ class Motor_Positioner:
         for row in self.csvreader:
                 self.rows.append(row)
                 
+        self.CW = 1
+        self.CCW = 0
+                
         for i in range(0,len(self.rows)):
             if(self.rows[i][0]=="LEFT"):
                 self.LEFT = int(self.rows[i][1])
@@ -70,7 +73,7 @@ class Motor_Positioner:
             self.left = GPIO.input(self.LEFT)                                        
             #right = GPIO.input(RIGHT)
 
-        sleep(1)
+        sleep(15)
         
         while(self.right==0):                              # To translate the bed to the right end
             GPIO.output(self.DIR, self.CW)

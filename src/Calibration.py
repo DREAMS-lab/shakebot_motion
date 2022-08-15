@@ -16,6 +16,9 @@ class Motor_Calibrator:
         for row in self.csvreader:
                 self.rows.append(row)
                 
+        self.CW = 1
+        self.CCW = 0
+                
         for i in range(0,len(self.rows)):
             if(self.rows[i][0]=="LEFT"):
                 self.LEFT = int(self.rows[i][1])
