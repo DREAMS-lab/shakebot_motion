@@ -73,7 +73,7 @@ class Motor_Positioner:
             self.left = GPIO.input(self.LEFT)                                        
             #right = GPIO.input(RIGHT)
 
-        sleep(15)
+        sleep(1)
         
         while(self.right==0):                              # To translate the bed to the right end
             GPIO.output(self.DIR, self.CW)

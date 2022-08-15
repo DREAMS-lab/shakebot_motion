@@ -43,6 +43,8 @@ class Motor_Calibrator:
         GPIO.setup(self.DIR, GPIO.OUT)					   # Initialization of Direction Output Pin
         GPIO.setup(self.STEP, GPIO.OUT)	                   # Initialization of Step Output Pin
         self.delay = 0.001
+        
+        #self.ls_checker()
 
         self.calibrate()
 
@@ -55,12 +57,20 @@ class Motor_Calibrator:
         for i in range(0,len(self.rows)):
                 self.writer.writerow(self.rows[i])
         self.file.close()
+        
+    def ls_checker(self):
+        while(1):
+            self.left = GPIO.input(self.LEFT)                                        
+            self.right = GPIO.input(self.RIGHT)
+            print(self.left,self.right)
 
 
     def calibrate(self):
+        
         self.steps = 0
         self.left = GPIO.input(self.LEFT)                                        
         self.right = GPIO.input(self.RIGHT)
+
         
         while(self.left==0):                               # To translate the bed to the left end
             GPIO.output(self.DIR,self.CCW)
