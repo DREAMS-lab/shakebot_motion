@@ -1,0 +1,4 @@
+<launch> 
+    <!-- Start Nodes -->
+    <node    name="Calibrator"    pkg="shakebot_motion"    type="Bed_Positioner.py"    output="screen"/>
+</launch>

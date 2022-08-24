@@ -8,7 +8,11 @@ import csv
 class Motor_Positioner: 
 
     def __init__(self):   
-
+    
+        print("Please make sure the Rail Length is updated in the Parameters.csv file")
+        print("Press any key to continue")
+        input()
+        
         self.file = open('Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
