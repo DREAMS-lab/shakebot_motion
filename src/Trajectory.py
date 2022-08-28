@@ -18,14 +18,15 @@ class F_A_Publisher:
         rospy.init_node('F_A_Publisher', anonymous=False)          # Initialization of Node
         self.pub1 = rospy.Publisher("F", Float64, queue_size=10)      
         self.pub2 = rospy.Publisher("A", Float64, queue_size=10)
-        self.F_A_Compute()
-        return self.F, self.A
-            
+        
+        
     def F_A_Compute(self):
 
         self.F = 1 / (2 * math.pi * self.PGV_2_PGA)
         self.A = (9.807 * self.PGA) / (4 * math.pi**2 * self.F)
         self.publish_F_A()
+        return self.F, self.A
+        
 
     def publish_F_A(self):
         self.pub1. publish(self.F)
@@ -35,7 +36,7 @@ class F_A_Publisher:
 class Velocity_Publisher:
     def __init__(self,F,A):
 
-        self.Hz = 200
+        self.Hz = 100
         self.F = F
         self.A = A      
         #rospy.init_node('F_A_Subscriber', anonymous=False)
@@ -57,6 +58,7 @@ class Velocity_Publisher:
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
             self.pub.publish(self.velocity)
+            #print("Pub:",self.velocity)
 
         self.pub.publish(0.0)
     # def callback_F(self, msg):

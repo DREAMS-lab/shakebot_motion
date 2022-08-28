@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-
+import rospy
 from Trajectory import F_A_Publisher
 from Trajectory import Velocity_Publisher
 from Bed_Positioner import Motor_Positioner
@@ -13,6 +13,8 @@ import RPi.GPIO as GPIO
 
 class UI: 
     def __init__(self):
+        
+        GPIO.setwarnings(False)
         #Getting Input from the User
         self.calibration_check()
         self.input()
@@ -44,7 +46,7 @@ class UI:
         print("Is the rock toppled?(Y/N):")
         self.rock_flag = input()
 
-        self.file = open('Experiment_Data.csv')
+        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
@@ -54,20 +56,24 @@ class UI:
 
         self.rows.append([datetime.now(),self.PGV_2_PGA,self.PGA,self.rock_flag])
 
-        self.file = open('Parameters.csv','w')
+        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv','w')
         self.writer = csv.writer(self.file)
         for i in range(0,len(self.rows)):
             self.writer.writerow(self.rows[i])
         self.file.close()
 
-    def camera_call_server(state):
+    def camera_call_server(self, state):
         client = actionlib.SimpleActionClient("shakebot_recorder_as", recorder_automationAction)
+        print("waiting server start")
         client.wait_for_server()
+        print("waiting serverend")
         goal = recorder_automationGoal()
         goal.recorder_state = state
         client.send_goal(goal)
+        print("goal_sent")
         client.wait_for_result()
         result=client.get_result()
+        #print(result)
         return result
         
 
@@ -85,16 +91,24 @@ class UI:
         
         print("Initiating Rock Shaking")
         time.sleep(1)
+        
+        self.F_A = F_A_Publisher(self.PGV_2_PGA,self.PGA)
+        print("Calling camera")
+        while not self.recorder_state_start:
+            print("inside camera call while")
+            self.recorder_state_start=self.camera_call_server(True)
+            print(self.recorder_state_start)
+        
+        #self.F, self.A = self.F_A.F_A_Compute()
+        
+        time.sleep(2.5)
+        print("Camera Triggered")
 
-        while(self.recorder_state_start == False):
-            self.recorder_state=self.camera_call_server(True)
+        #self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
 
-        self.F, self.A = self.F_A_Publisher= F_A_Publisher(self.PGV_2_PGA,self.PGA)
-
-        self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
-
-        while(self.recorder_state_end == False):
-            self.recorder_state=self.camera_call_server(False)
+        while not self.recorder_state_end:
+            self.recorder_state_end=self.camera_call_server(False)
+            print(self.recorder_state_end)
 
         self.rockstatus()
 
@@ -104,6 +118,7 @@ class UI:
             self.input()
         else:
             print("Exiting")
+            rospy.signal_shutdown("Stopping")
             exit()
 
 
@@ -112,4 +127,4 @@ class UI:
 if __name__ == '__main__':
         
         User_Interface = UI()
-       GPIO.cleanup()
+        GPIO.cleanup()

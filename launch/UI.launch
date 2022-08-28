@@ -1,6 +1,6 @@
 <launch> 
     <!-- Start Nodes -->
     <node    name="Publisher"    pkg="shakebot_motion"    type="UI.py"    output="screen"/>
-   <node    name="motor_control"    pkg="shakebot_motion"    type="Motor_Controller.py"    output="screen"/>
+    <node    name="motor_control"    pkg="shakebot_motion"    type="Motor_Controller.py"    output="screen"/>
     <!-- End Nodes -->
 </launch>

@@ -9,7 +9,9 @@ import csv
 
 class Motor_Controller:
     def __init__(self):
-        self.file = open('Parameters.csv')
+        GPIO.setwarnings(False)
+        print("Started Motor Controller")
+        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
@@ -29,7 +31,7 @@ class Motor_Controller:
                 self.hub_dia = float(self.rows[i][1])
             if(self.rows[i][0]=="Step_angle"):
                 self.step_angle = float(self.rows[i][1])
-
+        #print(self.LEFT)
         self.file.close()
         self.hub_dia = self.hub_dia/1000
         self.CW = 1
@@ -47,7 +49,7 @@ class Motor_Controller:
 
 
     def callback(self,msg):
-        #print(msg.data)
+        print("sub",msg.data)
         
         self.linear_vel = msg.data
         

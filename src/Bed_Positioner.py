@@ -8,12 +8,12 @@ import csv
 class Motor_Positioner: 
 
     def __init__(self):   
-    
+        GPIO.setwarnings(False)
         print("Please make sure the Rail Length is updated in the Parameters.csv file")
         print("Press any key to continue")
         input()
         
-        self.file = open('Parameters.csv')
+        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
@@ -51,16 +51,26 @@ class Motor_Positioner:
         self.delay = 0.001
 
         self.calibrate()
+        #self.test()
 
         for i in range(0,len(self.rows)):
             if(self.rows[i][0]=="Distance_Unit_Step"):
                 self.rows[i][1] = self.rail_length/self.total_steps
 
-        self.file = open('Parameters.csv','w')             # To update the total steps in the csv file
+        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')             # To update the total steps in the csv file
         self.writer = csv.writer(self.file)
         for i in range(0,len(self.rows)):
                 self.writer.writerow(self.rows[i])
         self.file.close()
+        
+        GPIO.cleanup()
+    
+    def test(self):
+        while(1):
+            self.left = GPIO.input(self.LEFT)                                        
+            self.right = GPIO.input(self.RIGHT)
+            print(self.left,self.right)
+            
 
 
     def calibrate(self):
