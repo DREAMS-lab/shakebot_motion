@@ -16,7 +16,7 @@ class UI:
         
         GPIO.setwarnings(False)
         #Getting Input from the User
-        self.calibration_check()
+        #self.calibration_check()
         self.input()
 
 
@@ -78,16 +78,19 @@ class UI:
         
 
     def input(self):                                #To get PGV and PGA values and calls the Velocity_Publisher() to calculate trajectory and publish velocity
-        self.rock_positioned()
-        time.sleep(1)
+        #self.rock_positioned()
+        #time.sleep(1)
 
         self.recorder_state_start = False
         self.recorder_state_end = False
         
-        print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
-        self.PGV_2_PGA = float(input())
-        print("Enter Peak Ground Acceleration(m/s^2):")
-        self.PGA = float(input())
+        # print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
+        # self.PGV_2_PGA = float(input())
+        # print("Enter Peak Ground Acceleration(m/s^2):")
+        # self.PGA = float(input())
+        
+        self.PGV_2_PGA=0.1
+        self.PGA = 0.1
         
         print("Initiating Rock Shaking")
         time.sleep(1)
