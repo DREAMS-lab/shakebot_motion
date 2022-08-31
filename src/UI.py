@@ -10,13 +10,16 @@ import csv
 import actionlib
 from shakebot_perception.msg import recorder_automationAction, recorder_automationGoal
 import RPi.GPIO as GPIO
+import os
 
 class UI: 
     def __init__(self):
         
+        os.system("Clear")
         GPIO.setwarnings(False)
         #Getting Input from the User
-        #self.calibration_check()
+        self.calibration_check()
+        os.system("Clear")
         self.input()
 
 
@@ -26,8 +29,6 @@ class UI:
 
         if self.calibration_flag == "N":
             print("Initializing the Calibration")
-            print("Please confirm all parameters are entered in the Parameters.csv file")
-            print("Press any key to continue")
             input()
             self.motor1_calibrate = Motor_Positioner()
             print("Calibration Done")
@@ -54,6 +55,7 @@ class UI:
                 self.rows.append(row)
         self.file.close()
 
+        
         self.rows.append([datetime.now(),self.PGV_2_PGA,self.PGA,self.rock_flag])
 
         self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv','w')
@@ -64,13 +66,13 @@ class UI:
 
     def camera_call_server(self, state):
         client = actionlib.SimpleActionClient("shakebot_recorder_as", recorder_automationAction)
-        print("waiting server start")
+        #print("waiting server start")
         client.wait_for_server()
-        print("waiting serverend")
+        #print("waiting serverend")
         goal = recorder_automationGoal()
         goal.recorder_state = state
         client.send_goal(goal)
-        print("goal_sent")
+        #print("goal_sent")
         client.wait_for_result()
         result=client.get_result()
         #print(result)
@@ -78,36 +80,36 @@ class UI:
         
 
     def input(self):                                #To get PGV and PGA values and calls the Velocity_Publisher() to calculate trajectory and publish velocity
-        #self.rock_positioned()
-        #time.sleep(1)
+        
+        os.system("Clear")
+
+        self.rock_positioned()
+        time.sleep(1)
 
         self.recorder_state_start = False
         self.recorder_state_end = False
         
-        # print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
-        # self.PGV_2_PGA = float(input())
-        # print("Enter Peak Ground Acceleration(m/s^2):")
-        # self.PGA = float(input())
-        
-        self.PGV_2_PGA=0.1
-        self.PGA = 0.1
+        print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
+        self.PGV_2_PGA = float(input())
+        print("Enter Peak Ground Acceleration(m/s^2):")
+        self.PGA = float(input())
         
         print("Initiating Rock Shaking")
         time.sleep(1)
         
         self.F_A = F_A_Publisher(self.PGV_2_PGA,self.PGA)
-        print("Calling camera")
+        
         while not self.recorder_state_start:
-            print("inside camera call while")
+            #print("inside camera call while")
             self.recorder_state_start=self.camera_call_server(True)
-            print(self.recorder_state_start)
+            #print(self.recorder_state_start)
         
-        #self.F, self.A = self.F_A.F_A_Compute()
+        self.F, self.A = self.F_A.F_A_Compute()
         
-        time.sleep(2.5)
+        time.sleep(1)
         print("Camera Triggered")
 
-        #self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
+        self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
 
         while not self.recorder_state_end:
             self.recorder_state_end=self.camera_call_server(False)
@@ -123,9 +125,6 @@ class UI:
             print("Exiting")
             rospy.signal_shutdown("Stopping")
             exit()
-
-
-
 
 if __name__ == '__main__':
         

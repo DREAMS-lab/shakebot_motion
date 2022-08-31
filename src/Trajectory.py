@@ -36,7 +36,7 @@ class F_A_Publisher:
 class Velocity_Publisher:
     def __init__(self,F,A):
 
-        self.Hz = 100
+        self.Hz = 200
         self.F = F
         self.A = A      
         #rospy.init_node('F_A_Subscriber', anonymous=False)
@@ -58,7 +58,8 @@ class Velocity_Publisher:
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
             self.pub.publish(self.velocity)
-            #print("Pub:",self.velocity)
+            print("t:",self.t," velocity:",self.velocity," F:",self.F," A:",self.A)
+            
 
         self.pub.publish(0.0)
     # def callback_F(self, msg):
