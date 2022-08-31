@@ -9,7 +9,7 @@ import os
 class Motor_Positioner: 
 
     def __init__(self):   
-        GPIO.setwarnings(False)
+        #GPIO.setwarnings(False)
 
         self.CW = 1
         self.CCW = 0
@@ -34,7 +34,7 @@ class Motor_Positioner:
             os.system('clear')
             print("Proceeding with Default Parameters")
 
-
+        print("Starting Calibration")
         self.total_steps = 0
 
         GPIO.setmode(GPIO.BCM)
@@ -48,6 +48,11 @@ class Motor_Positioner:
         #self.test()
         
         self.csv_write()
+        
+        os.system('clear')
+        print("Calibration Complete")
+        sleep(1.5)
+        print("Exiting")
         
         GPIO.cleanup()
     
@@ -80,6 +85,9 @@ class Motor_Positioner:
                 self.step_angle = float(self.rows[i][1])
             if(self.rows[i][0]=="Rail_Length"):
                 self.rail_length = float(self.rows[i][1])
+            if(self.rows[i][0]=="Total_Steps"):
+                self.total_steps = float(self.rows[i][1])
+                
 
         self.file.close()
 
@@ -117,6 +125,7 @@ class Motor_Positioner:
         self.edit_check = input()
         if(self.edit_check=='Y'):
             self.csv_edit()
+        
 
     def csv_write(self):
 
@@ -140,11 +149,11 @@ class Motor_Positioner:
             if(self.rows[i][0]=="Distance_Unit_Step"):
                 self.rows[i][1] = self.rail_length/self.total_steps
 
-        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')             # To update the total steps in the csv file
-        self.writer = csv.writer(self.file)
+        self.file_write = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')             # To update the total steps in the csv file
+        self.writer = csv.writer(self.file_write)
         for i in range(0,len(self.rows)):
             self.writer.writerow(self.rows[i])
-        self.file.close()
+        self.file_write.close()
 
     def calibrate(self):
         self.steps = 0
@@ -159,8 +168,11 @@ class Motor_Positioner:
             sleep(self.delay)
             self.left = GPIO.input(self.LEFT)                                        
             #right = GPIO.input(RIGHT)
+            
 
         sleep(1)
+        
+        
         
         while(self.right==0):                              # To translate the bed to the right end
             GPIO.output(self.DIR, self.CW)
@@ -193,6 +205,6 @@ class Motor_Positioner:
 if __name__ == '__main__':
         
     motor_1 = Motor_Positioner()
-    GPIO.cleanup()
+    
 
 	

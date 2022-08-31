@@ -23,7 +23,7 @@ class F_A_Publisher:
     def F_A_Compute(self):
 
         self.F = 1 / (2 * math.pi * self.PGV_2_PGA)
-        self.A = (9.807 * self.PGA) / (4 * math.pi**2 * self.F)
+        self.A = (self.PGA) / (4 * math.pi**2 * self.F**2)
         self.publish_F_A()
         return self.F, self.A
         
@@ -53,13 +53,18 @@ class Velocity_Publisher:
         self.T = 1/self.F
 
         self.step_nm = int(self.T * self.Hz) + 1
+        
+        #print(self.step_nm)
 
+        self.j = 0
+        
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
             self.pub.publish(self.velocity)
-            print("t:",self.t," velocity:",self.velocity," F:",self.F," A:",self.A)
-            
+            self.rate.sleep()
+            #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
+        
 
         self.pub.publish(0.0)
     # def callback_F(self, msg):

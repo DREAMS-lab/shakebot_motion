@@ -3,7 +3,6 @@
 import rospy
 from Trajectory import F_A_Publisher
 from Trajectory import Velocity_Publisher
-from Bed_Positioner import Motor_Positioner
 import time
 from datetime import datetime
 import csv
@@ -15,28 +14,13 @@ import os
 class UI: 
     def __init__(self):
         
-        os.system("Clear")
+        os.system("clear")
         GPIO.setwarnings(False)
         #Getting Input from the User
-        self.calibration_check()
-        os.system("Clear")
+        
+        print("SHAKE BOT")
         self.input()
 
-
-    def calibration_check(self):                    #Checking if the calibration is done
-        print("Is the Calibration done?(Y/N):")
-        self.calibration_flag = input()
-
-        if self.calibration_flag == "N":
-            print("Initializing the Calibration")
-            input()
-            self.motor1_calibrate = Motor_Positioner()
-            print("Calibration Done")
-        elif(self.calibration_flag == "Y"):
-            print("Calibration Skipped")    
-        else: 
-            print("Invalid Input")
-            self.calibration_check()
 
     def rock_positioned(self):                      #To check if user had placed rock on bed
         print("Please postion Rock on the Bed")
@@ -81,11 +65,15 @@ class UI:
 
     def input(self):                                #To get PGV and PGA values and calls the Velocity_Publisher() to calculate trajectory and publish velocity
         
-        os.system("Clear")
-
+        os.system("clear")
+        print("SHAKE BOT")
+        
         self.rock_positioned()
         time.sleep(1)
-
+        
+        os.system("clear")
+        print("SHAKE BOT")
+        
         self.recorder_state_start = False
         self.recorder_state_end = False
         
@@ -99,21 +87,21 @@ class UI:
         
         self.F_A = F_A_Publisher(self.PGV_2_PGA,self.PGA)
         
-        while not self.recorder_state_start:
-            #print("inside camera call while")
-            self.recorder_state_start=self.camera_call_server(True)
-            #print(self.recorder_state_start)
+        # while not self.recorder_state_start:
+        #     #print("inside camera call while")
+        #     self.recorder_state_start=self.camera_call_server(True)
+        #     #print(self.recorder_state_start)
         
         self.F, self.A = self.F_A.F_A_Compute()
         
-        time.sleep(1)
-        print("Camera Triggered")
+        # time.sleep(1)
+        # print("Camera Triggered")
 
         self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
 
-        while not self.recorder_state_end:
-            self.recorder_state_end=self.camera_call_server(False)
-            print(self.recorder_state_end)
+        # while not self.recorder_state_end:
+        #     self.recorder_state_end=self.camera_call_server(False)
+        #     # print(self.recorder_state_end)
 
         self.rockstatus()
 

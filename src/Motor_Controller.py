@@ -3,37 +3,20 @@
 import rospy
 from std_msgs.msg import Float64
 import math
-from time import sleep
+import time
 import RPi.GPIO as GPIO
 import csv
 
+
 class Motor_Controller:
     def __init__(self):
-        GPIO.setwarnings(False)
-        print("Started Motor Controller")
-        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv')
-        type(self.file)
-        self.csvreader = csv.reader(self.file)
-        self.rows=[]
-        for row in self.csvreader:
-                self.rows.append(row)
+        #GPIO.setwarnings(False)
+        #print("Started Motor Controller")
                 
-        for i in range(0,len(self.rows)):
-            if(self.rows[i][0]=="LEFT"):
-                self.LEFT = int(self.rows[i][1])
-            if(self.rows[i][0]=="RIGHT"):
-                self.RIGHT = int(self.rows[i][1])
-            if(self.rows[i][0]=="DIR"):
-                self.DIR = int(self.rows[i][1])
-            if(self.rows[i][0]=="STEP"):
-                self.STEP = int(self.rows[i][1])
-            if(self.rows[i][0]=="Hub_Diameter"):
-                self.hub_dia = float(self.rows[i][1])
-            if(self.rows[i][0]=="Step_angle"):
-                self.step_angle = float(self.rows[i][1])
-        #print(self.LEFT)
-        self.file.close()
-        self.hub_dia = self.hub_dia/1000
+        self.csv_read()       
+        
+        #print("LEFT Limitswitch PIN :",self.LEFT,"\nRIGHT Limitswitch PIN :",self.RIGHT,"\nDIR PIN :",self.DIR,"\nSTEP PIN :",self.STEP,"\nHub Diameter :",self.hub_dia,"\nStep Angle :",self.step_angle)
+                
         self.CW = 1
         self.CCW = 0
 
@@ -43,16 +26,15 @@ class Motor_Controller:
 
         self.p = GPIO.PWM(self.STEP,1) 						   # Initializing the GPIO pin to output PWM signal
         self.p.start(50) 
+        self.hub_dia = self.hub_dia/1000
+        #print("Started Sub")
+        rospy.Subscriber("/data_acquisition/Velocity", Float64, self.callback, queue_size=100, buff_size=160*1024)
         
-        rospy.Subscriber("Velocity", Float64, self.callback, queue_size=100, buff_size=160*1024)
-
-
-
     def callback(self,msg):
-        print("sub",msg.data)
-        
+        #print("sub",msg.data)
+                
         self.linear_vel = msg.data
-        
+         
         self.speed_rpm = self.linear_vel * 60 / (self.hub_dia/2)  / (2*math.pi)                 # Revolutions per Minute || Angular Velocity = Linear Velocity / Radius of Hub
 
         self.pulse_per_sec = self.speed_rpm  / ((self.step_angle/360) * 60)      # Pulses per Second = RPM * 360 * 360 / (Pulse/Rev * 60)
@@ -80,6 +62,32 @@ class Motor_Controller:
         if(abs(self.freq_max)>=1):					   # To Publish the frequency of motor through the GPIO pin
             self.p.ChangeFrequency(abs(self.freq_max)) 
             #print(self.freq_max)
+            
+    def csv_read(self):
+        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+        type(self.file)
+        self.csvreader = csv.reader(self.file)
+        self.rows=[]
+        for row in self.csvreader:
+                self.rows.append(row)
+                
+        for i in range(0,len(self.rows)):
+            if(self.rows[i][0]=="LEFT"):
+                self.LEFT = int(self.rows[i][1])
+            if(self.rows[i][0]=="RIGHT"):
+                self.RIGHT = int(self.rows[i][1])
+            if(self.rows[i][0]=="DIR"):
+                self.DIR = int(self.rows[i][1])
+            if(self.rows[i][0]=="STEP"):
+                self.STEP = int(self.rows[i][1])
+            if(self.rows[i][0]=="Hub_Diameter"):
+                self.hub_dia = float(self.rows[i][1])
+            if(self.rows[i][0]=="Step_angle"):
+                self.step_angle = float(self.rows[i][1])
+            if(self.rows[i][0]=="Rail_Length"):
+                self.rail_length = float(self.rows[i][1])
+            if(self.rows[i][0]=="Total_Steps"):
+                self.total_steps = float(self.rows[i][1])
         
 
 
