@@ -40,7 +40,7 @@ class UI:
         self.file.close()
 
         
-        self.rows.append([datetime.now(),self.PGV_2_PGA,self.PGA,self.rock_flag])
+        self.rows.append([datetime.now(),self.PGV_2_PGA,self.PGA / 9.80665,self.rock_flag])
 
         self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv','w')
         self.writer = csv.writer(self.file)
@@ -79,8 +79,10 @@ class UI:
         
         print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
         self.PGV_2_PGA = float(input())
-        print("Enter Peak Ground Acceleration(m/s^2):")
+        print("Enter Peak Ground Acceleration(Gs):")
         self.PGA = float(input())
+
+        self.PGA = self.PGA * 9.80665   # Converting to m/s^2
         
         print("Initiating Rock Shaking")
         time.sleep(1)
