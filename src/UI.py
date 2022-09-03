@@ -49,7 +49,7 @@ class UI:
         self.file.close()
 
     def camera_call_server(self, state):
-        client = actionlib.SimpleActionClient("shakebot_recorder_as", recorder_automationAction)
+        client = actionlib.SimpleActionClient("/data_acquisition/shakebot_recorder_as", recorder_automationAction)
         #print("waiting server start")
         client.wait_for_server()
         #print("waiting serverend")
