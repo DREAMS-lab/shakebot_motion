@@ -63,7 +63,7 @@ class Motor_Positioner:
             print(self.left,self.right)
             
     def csv_read(self):
-        self.file = open('/home/',os.getlogin(),'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+        self.file = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
@@ -149,7 +149,7 @@ class Motor_Positioner:
             if(self.rows[i][0]=="Distance_Unit_Step"):
                 self.rows[i][1] = self.rail_length/self.total_steps
 
-        self.file_write = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')             # To update the total steps in the csv file
+        self.file_write = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')             # To update the total steps in the csv file
         self.writer = csv.writer(self.file_write)
         for i in range(0,len(self.rows)):
             self.writer.writerow(self.rows[i])
