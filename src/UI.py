@@ -31,7 +31,7 @@ class UI:
         print("Is the rock toppled?(Y/N):")
         self.rock_flag = input()
 
-        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv')
+        self.file = open('/home/',os.getlogin(),'/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
@@ -42,7 +42,7 @@ class UI:
         
         self.rows.append([datetime.now(),self.PGV_2_PGA,self.PGA / 9.80665,self.rock_flag])
 
-        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv','w')
+        self.file = open('/home/',os.getlogin(),'/catkin_ws/src/shakebot_motion/src/Experiment_Data.csv','w')
         self.writer = csv.writer(self.file)
         for i in range(0,len(self.rows)):
             self.writer.writerow(self.rows[i])

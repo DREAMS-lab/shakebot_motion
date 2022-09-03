@@ -63,7 +63,7 @@ class Motor_Positioner:
             print(self.left,self.right)
             
     def csv_read(self):
-        self.file = open('/home/ubuntu/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+        self.file = open('/home/',os.getlogin(),'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
