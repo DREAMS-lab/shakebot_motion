@@ -6,6 +6,7 @@ import math
 import time
 import RPi.GPIO as GPIO
 import csv
+import os
 
 
 class Motor_Controller:
@@ -64,7 +65,7 @@ class Motor_Controller:
             #print(self.freq_max)
             
     def csv_read(self):
-        self.file = open('/home/',os.getlogin(),'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+        self.file = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
         self.rows=[]
