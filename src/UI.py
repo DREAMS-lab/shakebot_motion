@@ -89,10 +89,10 @@ class UI:
         
         self.F_A = F_A_Publisher(self.PGV_2_PGA,self.PGA)
         
-        # while not self.recorder_state_start:
-        #     #print("inside camera call while")
-        #     self.recorder_state_start=self.camera_call_server(True)
-        #     #print(self.recorder_state_start)
+        while not self.recorder_state_start:
+            #print("inside camera call while")
+            self.recorder_state_start=self.camera_call_server(True)
+            #print(self.recorder_state_start)
         
         self.F, self.A = self.F_A.F_A_Compute()
         
@@ -101,9 +101,9 @@ class UI:
 
         self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
 
-        # while not self.recorder_state_end:
-        #     self.recorder_state_end=self.camera_call_server(False)
-        #     # print(self.recorder_state_end)
+        while not self.recorder_state_end:
+            self.recorder_state_end=self.camera_call_server(False)
+            # print(self.recorder_state_end)
 
         self.rockstatus()
 
