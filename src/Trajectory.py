@@ -62,6 +62,7 @@ class Velocity_Publisher:
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
             self.pub.publish(self.velocity)
+            #rospy.loginfo(self.velocity)
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
         

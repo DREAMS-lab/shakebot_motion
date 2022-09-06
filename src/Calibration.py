@@ -8,7 +8,7 @@ import csv
 class Motor_Calibrator: 
 
     def __init__(self):   
-
+        GPIO.setwarnings(False)
         self.file = open('Parameters.csv')
         type(self.file)
         self.csvreader = csv.reader(self.file)
@@ -44,9 +44,9 @@ class Motor_Calibrator:
         GPIO.setup(self.STEP, GPIO.OUT)	                   # Initialization of Step Output Pin
         self.delay = 0.001
         
-        #self.ls_checker()
+        self.ls_checker()
 
-        self.calibrate()
+        #self.calibrate()
 
         for i in range(0,len(self.rows)):
             if(self.rows[i][0]=="Total_Steps"):

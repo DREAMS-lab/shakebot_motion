@@ -5,6 +5,6 @@ DIR,20,,
 STEP,18,,
 Hub_Diameter,51.812,Enter in Millimeters,Pulley With Belt 48.51mm (Pulley Diameter) + 2 * 1.651mm (Thickness of Belt)= 51.812mm
 Step_angle,1.8,Degrees,Please refer motor data sheet for value
-Total_Steps,5070,DO NOT EDIT,Will be calculated whilst running Calibration
+Total_Steps,4957,DO NOT EDIT,Will be calculated whilst running Calibration
 Rail_Length,384.99,Enter in Millimeters,
-Distance_Unit_Step,0.07593491124260356,DO NOT EDIT,The Distance Per Unit step in Millimeters
+Distance_Unit_Step,0.07766592697195884,DO NOT EDIT,The Distance Per Unit step in Millimeters

@@ -97,14 +97,14 @@ class UI:
         self.F, self.A = self.F_A.F_A_Compute()
         
         # time.sleep(1)
-        # print("Camera Triggered")
-
+        rospy.loginfo("Camera Triggered")
+        
         self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
 
         while not self.recorder_state_end:
             self.recorder_state_end=self.camera_call_server(False)
             # print(self.recorder_state_end)
-
+        rospy.loginfo("Camera Stopped")
         self.rockstatus()
 
         print("Do you want to continue?(Y/N):")

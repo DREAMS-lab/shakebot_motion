@@ -9,7 +9,7 @@ import os
 class Motor_Positioner: 
 
     def __init__(self):   
-        #GPIO.setwarnings(False)
+        GPIO.setwarnings(False)
 
         self.CW = 1
         self.CCW = 0
