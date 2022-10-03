@@ -40,7 +40,7 @@ class Velocity_Publisher:
         #rospy.Subscriber("F", Float64, self.callback_F, queue_size=100, buff_size=160*1024)
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
 
-        self.pub = rospy.Publisher("Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
+        self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
 
         self.Publish_Velocity()
 
@@ -49,7 +49,7 @@ class Velocity_Publisher:
 
         self.T = 1/self.F
 
-        self.step_nm = int(self.T * self.Hz)/2 + 1
+        self.step_nm = int((self.T * self.Hz)/2) + 1
         
         #print(self.step_nm)
 
@@ -95,5 +95,5 @@ class F_A_Publisher:
 
 if __name__ == '__main__':
         
-        User_Interface = UI()
+        User_Interface = PGD_Calibrate()
         GPIO.cleanup()
