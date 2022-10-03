@@ -7,6 +7,8 @@ import csv
 import os
 from std_msgs.msg import Float64
 import math
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 class PGD_Calibrate():
@@ -57,6 +59,11 @@ class Velocity_Publisher:
         self.displacement = 0.0
         self.disp = 0.0
 
+        # disp = np.zeros(self.step_nm)
+        # vel = np.zeros(self.step_nm)
+        # t = np.array(range(self.step_nm))
+        # t = t/self.Hz
+
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
@@ -65,11 +72,18 @@ class Velocity_Publisher:
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
             self.disp = (-self.A*math.cos(2*math.pi*self.F*self.t)) + self.A
-            self.displacement = self.displacement + (self.disp)
+            
+            #disp[self.j] = self.disp
+            #vel[self.j] = self.velocity
             
         self.pub.publish(0.0)
 
-        print("The Computed Displacement is: ",round(self.disp,2)," m")
+        # plt.plot(t,vel)
+        # plt.plot(t,disp)
+        # plt.legend(['Velocity','Displacement'])
+        # plt.show()
+
+        print("The Computed Displacement is: ",round(self.disp_max,2)," m")
 
 
 class F_A_Publisher:
@@ -98,4 +112,3 @@ class F_A_Publisher:
 if __name__ == '__main__':
         
         User_Interface = PGD_Calibrate()
-        GPIO.cleanup()
