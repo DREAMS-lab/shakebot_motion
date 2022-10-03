@@ -65,7 +65,7 @@ class Velocity_Publisher:
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
             self.displacement = self.displacement + (-self.A*math.cos(2*math.pi*self.F*self.t))
-        
+            
         self.pub.publish(0.0)
         print("The Computed Displacement is: ",self.displacement," m")
 
