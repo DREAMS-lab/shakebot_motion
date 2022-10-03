@@ -4,7 +4,6 @@ import rospy
 import time
 from datetime import datetime
 import csv
-import RPi.GPIO as GPIO
 import os
 from std_msgs.msg import Float64
 import math
@@ -41,7 +40,6 @@ class Velocity_Publisher:
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
 
         self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
-        self.disp_pub = rospy.Publisher("/data_acquisition/Displacement", Float64, queue_size=10)     # Publishing to the topic "Frequency"
 
         self.Publish_Velocity()
 
@@ -58,7 +56,6 @@ class Velocity_Publisher:
         
         self.displacement = 0.0
         self.disp = 0.0
-        self.max_disp = -1000.00
 
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
@@ -67,15 +64,12 @@ class Velocity_Publisher:
             #rospy.loginfo(self.velocity)
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
-            self.disp = (-self.A*math.cos(2*math.pi*self.F*self.t))
-            if(self.disp > self.max_disp):
-                self.max_disp = self.disp
-            #self.disp_pub.publish(self.disp)
-            self.displacement = self.displacement + (-self.A*math.cos(2*math.pi*self.F*self.t))
+            self.disp = (-self.A*math.cos(2*math.pi*self.F*self.t)) + self.A
+            self.displacement = self.displacement + (self.disp)
             
         self.pub.publish(0.0)
 
-        print("The Computed Displacement is: ",self.max_disp," m")
+        print("The Computed Displacement is: ",round(self.disp,2)," m")
 
 
 class F_A_Publisher:
