@@ -47,7 +47,17 @@ class Velocity_Publisher:
 
     def Publish_Velocity(self):
         
-        # Add Initialization 
+        # Add Initialization
+
+        tic = time.time()
+        toc = 0.0
+
+        while toc < 1.0:
+            toc = time.time() - tic
+            self.pub.publish(-0.01)
+            time.sleep(1/self.Hz)
+
+        self.pub.publish(0.0)
         
         self.rate = rospy.Rate(self.Hz)
 
