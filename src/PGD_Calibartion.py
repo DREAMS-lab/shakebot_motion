@@ -72,7 +72,7 @@ class Velocity_Publisher:
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
             self.disp = (-self.A*math.cos(2*math.pi*self.F*self.t)) + self.A
-            
+            self.disp = self.disp
             #disp[self.j] = self.disp
             #vel[self.j] = self.velocity
             
@@ -83,7 +83,7 @@ class Velocity_Publisher:
         # plt.legend(['Velocity','Displacement'])
         # plt.show()
 
-        print("The Computed Displacement is: ",round(self.disp_max,2)," m")
+        print("The Computed Displacement is: ",round(self.disp*100,2)," cms")
 
 
 class F_A_Publisher:
