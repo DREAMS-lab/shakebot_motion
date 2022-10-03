@@ -16,6 +16,9 @@ class Motor_Positioner:
 
         self.CW = 1
         self.CCW = 0
+        self.left = 0
+        self.right = 0
+        self.centered = 0
 
         self.csv_read()
 
@@ -162,9 +165,11 @@ class Motor_Positioner:
         self.file_write.close()
 
     def publish_data(self):
-        self.msg.left_ls = self.left
-        self.msg.right_ls = self.right
-        self.msg.bed_length = self.rail_length
+        msg = calib_msg()
+        msg.left_ls = self.left
+        msg.right_ls = self.right
+        msg.bed_length = self.rail_length
+        msg.middle = self.centered
         self.pub.publish(self.msg)
 
     def calibrate(self):
@@ -198,7 +203,7 @@ class Motor_Positioner:
         
         self.total_steps = self.steps
 
-        self.position = int(input("Enter Desired Position of Bed from left end (in mm) :"))
+        self.position = self.rail_length/2
 
         self.desired_step = int((self.position/self.rail_length)*self.total_steps)
 
@@ -211,8 +216,13 @@ class Motor_Positioner:
             self.left = GPIO.input(self.LEFT)                                        
             self.right = GPIO.input(self.RIGHT)
             self.steps = self.steps-1
+            if (self.steps==self.desired_step):
+                self.centered = 1
+            self.publish_data()
 
-        print("Bed Positioned at :",self.position,"mm from left end")
+        
+
+        print("Bed Positioned at the center")
 
 if __name__ == '__main__':
         
