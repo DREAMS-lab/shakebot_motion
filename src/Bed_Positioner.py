@@ -220,7 +220,8 @@ class Motor_Positioner:
                 self.centered = 1
             self.publish_data()
 
-        
+        self.centered = 1
+        self.publish_data()
 
         print("Bed Positioned at the center")
 
