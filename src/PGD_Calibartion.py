@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 import rospy
 
 import time
@@ -46,6 +46,9 @@ class Velocity_Publisher:
         self.Publish_Velocity()
 
     def Publish_Velocity(self):
+        
+        # Add Initialization 
+        
         self.rate = rospy.Rate(self.Hz)
 
         self.T = 1/self.F

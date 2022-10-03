@@ -1,4 +1,5 @@
 <launch> 
     <!-- Start Nodes -->
     <node    name="Calibrator"    pkg="shakebot_motion"    type="PGD_Calibartion.py"    output="screen"/>
+    <node    name="motor_control"    pkg="shakebot_motion" type="Motor_Controller.py"    output="screen"/>
 </launch>
