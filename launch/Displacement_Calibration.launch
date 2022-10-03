@@ -1,0 +1,4 @@
+<launch> 
+    <!-- Start Nodes -->
+    <node    name="Calibrator"    pkg="shakebot_motion"    type="PGD_Calibartion.py"    output="screen"/>
+</launch>
