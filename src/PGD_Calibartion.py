@@ -58,6 +58,7 @@ class Velocity_Publisher:
         
         self.displacement = 0.0
         self.disp = 0.0
+        self.max_disp = -1000.00
 
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
@@ -67,11 +68,14 @@ class Velocity_Publisher:
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
             self.disp = (-self.A*math.cos(2*math.pi*self.F*self.t))
-            self.disp_pub.publish(self.disp)
+            if(self.disp > self.max_disp):
+                self.max_disp = self.disp
+            #self.disp_pub.publish(self.disp)
             self.displacement = self.displacement + (-self.A*math.cos(2*math.pi*self.F*self.t))
             
         self.pub.publish(0.0)
-        print("The Computed Displacement is: ",self.displacement," m")
+
+        print("The Computed Displacement is: ",self.max_disp," m")
 
 
 class F_A_Publisher:
