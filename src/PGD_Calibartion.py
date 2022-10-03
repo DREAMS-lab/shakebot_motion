@@ -41,6 +41,7 @@ class Velocity_Publisher:
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
 
         self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
+        self.disp_pub = rospy.Publisher("/data_acquisition/Displacement", Float64, queue_size=10)     # Publishing to the topic "Frequency"
 
         self.Publish_Velocity()
 
@@ -56,6 +57,7 @@ class Velocity_Publisher:
         self.j = 0
         
         self.displacement = 0.0
+        self.disp = 0.0
 
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
@@ -64,6 +66,8 @@ class Velocity_Publisher:
             #rospy.loginfo(self.velocity)
             self.rate.sleep()
             #print("t:",self.t," velocity:",self.velocity)  #," F:",self.F," A:",self.A)
+            self.disp = (-self.A*math.cos(2*math.pi*self.F*self.t))
+            self.disp_pub.publish(self.disp)
             self.displacement = self.displacement + (-self.A*math.cos(2*math.pi*self.F*self.t))
             
         self.pub.publish(0.0)
