@@ -58,6 +58,10 @@ class Velocity_Publisher:
             time.sleep(1/self.Hz)
 
         self.pub.publish(0.0)
+
+        rospy.sleep(1)
+
+        input("Press Enter to Continue and Mark Initial Position")
         
         self.rate = rospy.Rate(self.Hz)
 
