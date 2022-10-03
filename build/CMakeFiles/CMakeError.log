@@ -1,0 +1,123 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_b2d62/fast && /usr/bin/make -f CMakeFiles/cmTC_b2d62.dir/build.make CMakeFiles/cmTC_b2d62.dir/build
+make[1]: Entering directory '/home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b2d62.dir/testCCompiler.c.o
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc    -o CMakeFiles/cmTC_b2d62.dir/testCCompiler.c.o   -c /home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_b2d62
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2d62.dir/link.txt --verbose=1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc      -rdynamic CMakeFiles/cmTC_b2d62.dir/testCCompiler.c.o  -o cmTC_b2d62 
+arm-none-eabi-gcc: error: unrecognized command line option '-rdynamic'
+make[1]: *** [CMakeFiles/cmTC_b2d62.dir/build.make:87: cmTC_b2d62] Error 1
+make[1]: Leaving directory '/home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_b2d62/fast] Error 2
+
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_cce59/fast && /usr/bin/make -f CMakeFiles/cmTC_cce59.dir/build.make CMakeFiles/cmTC_cce59.dir/build
+make[1]: Entering directory '/home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_cce59.dir/testCCompiler.c.o
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc    -o CMakeFiles/cmTC_cce59.dir/testCCompiler.c.o   -c /home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_cce59
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cce59.dir/link.txt --verbose=1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc      -rdynamic CMakeFiles/cmTC_cce59.dir/testCCompiler.c.o  -o cmTC_cce59 
+arm-none-eabi-gcc: error: unrecognized command line option '-rdynamic'
+make[1]: *** [CMakeFiles/cmTC_cce59.dir/build.make:87: cmTC_cce59] Error 1
+make[1]: Leaving directory '/home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_cce59/fast] Error 2
+
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_caaa1/fast && /usr/bin/make -f CMakeFiles/cmTC_caaa1.dir/build.make CMakeFiles/cmTC_caaa1.dir/build
+make[1]: Entering directory '/home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_caaa1.dir/testCCompiler.c.o
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc    -o CMakeFiles/cmTC_caaa1.dir/testCCompiler.c.o   -c /home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_caaa1
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_caaa1.dir/link.txt --verbose=1
+/opt/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-gcc      -rdynamic CMakeFiles/cmTC_caaa1.dir/testCCompiler.c.o  -o cmTC_caaa1 
+arm-none-eabi-gcc: error: unrecognized command line option '-rdynamic'
+make[1]: *** [CMakeFiles/cmTC_caaa1.dir/build.make:87: cmTC_caaa1] Error 1
+make[1]: Leaving directory '/home/napster/catkin_ws/src/shakebot_motion/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_caaa1/fast] Error 2
+
+
+

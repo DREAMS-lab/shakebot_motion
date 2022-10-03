@@ -5,6 +5,9 @@ import RPi.GPIO as GPIO
 import csv
 import os
 
+import rospy
+from shakebot_motion.msg import calib_msg
+
 
 class Motor_Positioner: 
 
@@ -15,6 +18,9 @@ class Motor_Positioner:
         self.CCW = 0
 
         self.csv_read()
+
+        rospy.init_node('calibration', anonymous=True)
+        self.pub = rospy.Publisher('calibration_parameters', calib_msg, queue_size=10)
     
         os.system('clear')
 
@@ -155,10 +161,17 @@ class Motor_Positioner:
             self.writer.writerow(self.rows[i])
         self.file_write.close()
 
+    def publish_data(self):
+        self.msg.left_ls = self.left
+        self.msg.right_ls = self.right
+        self.msg.bed_length = self.rail_length
+        self.pub.publish(self.msg)
+
     def calibrate(self):
         self.steps = 0
         self.left = GPIO.input(self.LEFT)                                        
         self.right = GPIO.input(self.RIGHT)
+        self.msg = calib_msg()
         
         while(self.left==0):                               # To translate the bed to the left end
             GPIO.output(self.DIR,self.CCW)
@@ -167,12 +180,10 @@ class Motor_Positioner:
             GPIO.output(self.STEP, GPIO.LOW)
             sleep(self.delay)
             self.left = GPIO.input(self.LEFT)                                        
-            #right = GPIO.input(RIGHT)
+            self.right = GPIO.input(self.RIGHT)
+            self.publish_data()
             
-
         sleep(1)
-        
-        
         
         while(self.right==0):                              # To translate the bed to the right end
             GPIO.output(self.DIR, self.CW)
@@ -180,9 +191,10 @@ class Motor_Positioner:
             sleep(self.delay)
             GPIO.output(self.STEP, GPIO.LOW)
             sleep(self.delay)
-            #left = GPIO.input(LEFT)                                        
+            self.left = GPIO.input(self.LEFT)                                        
             self.right = GPIO.input(self.RIGHT)
             self.steps = self.steps+1
+            self.publish_data()
         
         self.total_steps = self.steps
 
