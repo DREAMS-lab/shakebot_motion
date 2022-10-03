@@ -84,6 +84,10 @@ class Velocity_Publisher:
         # plt.show()
 
         print("The Computed Displacement is: ",round(self.disp*100,2)," cms")
+        self.actual_disp = float(input("Enter the Actual Displacement in cms: "))
+
+        self.multipler = self.disp / (self.actual_disp/100)
+        print("The Multiplier is: ",round(self.multipler,2))
 
 
 class F_A_Publisher:
