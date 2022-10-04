@@ -7,4 +7,5 @@ Hub_Diameter,51.812,Enter in Millimeters,Pulley With Belt 48.51mm (Pulley Diamet
 Step_angle,1.8,Degrees,Please refer motor data sheet for value
 Total_Steps,4921,DO NOT EDIT,Will be calculated whilst running Calibration
 Rail_Length,384.99,Enter in Millimeters,
-Distance_Unit_Step,0.07823409876041455,DO NOT EDIT,The Distance Per Unit step in Millimeters
+Distance_Unit_Step,0.078234098760415,DO NOT EDIT,The Distance Per Unit step in Millimeters
+Velocity_Multiplier,1.09,DO NOT EDIT,
