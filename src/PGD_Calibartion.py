@@ -52,7 +52,7 @@ class Velocity_Publisher:
         tic = time.time()
         toc = 0.0
 
-        while toc < 1.0:
+        while toc < 0.5:
             toc = time.time() - tic
             self.pub.publish(-0.01)
             time.sleep(1/self.Hz)
