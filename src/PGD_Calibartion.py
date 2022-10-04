@@ -28,8 +28,28 @@ class PGD_Calibrate():
             
             self.F, self.A = self.F_A.F_A_Compute()
             
-            self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
+            self.velocity_multiplier = Velocity_Publisher(self.F,self.A)
 
+            self.csv_update()
+
+        def csv_update(self):
+            self.file_read = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+            type(self.file_read)
+            self.csvreader = csv.reader(self.file_read)
+            self.rows=[]
+            for row in self.csvreader:
+                    self.rows.append(row)
+            self.file_read.close()
+
+            for i in range(0,len(self.rows)):
+                if(self.rows[i][0]=="Velocity_Multiplier"):
+                    self.rows[i][1] = self.velocity_multiplier
+
+            self.file_write = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')
+            self.writer = csv.writer(self.file_write)
+            for i in range(0,len(self.rows)):
+                self.writer.writerow(self.rows[i])
+            self.file_write.close()
 
 class Velocity_Publisher:
     def __init__(self,F,A):
@@ -45,18 +65,24 @@ class Velocity_Publisher:
 
         self.Publish_Velocity()
 
+        return self.multipler
+
     def Publish_Velocity(self):
         
-        # Add Initialization
-
         tic = time.time()
         toc = 0.0
-
         while toc < 0.5:
             toc = time.time() - tic
             self.pub.publish(-0.01)
             time.sleep(1/self.Hz)
+        self.pub.publish(0.0)
 
+        tic = time.time()
+        toc = 0.0
+        while toc < 0.5:
+            toc = time.time() - tic
+            self.pub.publish(0.01)
+            time.sleep(1/self.Hz)
         self.pub.publish(0.0)
 
         rospy.sleep(1)
@@ -67,7 +93,7 @@ class Velocity_Publisher:
 
         self.T = 1/self.F
 
-        self.step_nm = int((self.T * self.Hz)/2) + 1
+        self.step_nm = int((self.T * self.Hz)/2) + 1  # Divied by 2 because we need the bed to move in one direction only
         
         #print(self.step_nm)
 
