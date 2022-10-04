@@ -30,27 +30,6 @@ class PGD_Calibrate():
             
             self.velocity_multiplier = Velocity_Publisher(self.F,self.A)
 
-            self.csv_update()
-
-        def csv_update(self):
-            self.file_read = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
-            type(self.file_read)
-            self.csvreader = csv.reader(self.file_read)
-            self.rows=[]
-            for row in self.csvreader:
-                    self.rows.append(row)
-            self.file_read.close()
-
-            for i in range(0,len(self.rows)):
-                if(self.rows[i][0]=="Velocity_Multiplier"):
-                    self.rows[i][1] = self.velocity_multiplier
-
-            self.file_write = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')
-            self.writer = csv.writer(self.file_write)
-            for i in range(0,len(self.rows)):
-                self.writer.writerow(self.rows[i])
-            self.file_write.close()
-
 class Velocity_Publisher:
     def __init__(self,F,A):
 
@@ -64,8 +43,6 @@ class Velocity_Publisher:
         self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
 
         self.Publish_Velocity()
-
-        return self.multipler
 
     def Publish_Velocity(self):
         
@@ -131,7 +108,26 @@ class Velocity_Publisher:
 
         self.multipler = self.disp / (self.actual_disp/100)
         print("The Multiplier is: ",round(self.multipler,2))
+        self.csv_update()
+        
+    def csv_update(self):
+        self.file_read = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+        type(self.file_read)
+        self.csvreader = csv.reader(self.file_read)
+        self.rows=[]
+        for row in self.csvreader:
+                self.rows.append(row)
+        self.file_read.close()
 
+        for i in range(0,len(self.rows)):
+            if(self.rows[i][0]=="Velocity_Multiplier"):
+                self.rows[i][1] = round(self.multipler,4)
+
+        self.file_write = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv','w')
+        self.writer = csv.writer(self.file_write)
+        for i in range(0,len(self.rows)):
+            self.writer.writerow(self.rows[i])
+        self.file_write.close()
 
 class F_A_Publisher:
     def __init__(self,PGV_2_PGA, PGA):
