@@ -4,6 +4,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 import csv
 import os
+import time
 
 import rospy
 from shakebot_motion.msg import calib_msg
@@ -16,13 +17,15 @@ class Motor_Positioner:
 
         self.CW = 1
         self.CCW = 0
+        ############################ Publishing Parameters ########################################
         self.left = 0
         self.right = 0
-        self.centered = 0
-
+        self.position = 0
+        self.rail_length = 0
+        ###########################################################################################
         self.csv_read()
 
-        rospy.init_node('calibration', anonymous=True)
+        rospy.init_node('Bed_April_Tag_Calibrator', anonymous=True)
         self.pub = rospy.Publisher('calibration_parameters', calib_msg, queue_size=10)
     
         os.system('clear')
@@ -169,14 +172,13 @@ class Motor_Positioner:
         msg.left_ls = self.left
         msg.right_ls = self.right
         msg.bed_length = self.rail_length
-        msg.middle = self.centered
-        self.pub.publish(self.msg)
+        msg.bed_position = self.position    # Publish the user defined position in mm
+        self.pub.publish(msg)
 
     def calibrate(self):
         self.steps = 0
         self.left = GPIO.input(self.LEFT)                                        
         self.right = GPIO.input(self.RIGHT)
-        self.msg = calib_msg()
         
         while(self.left==0):                               # To translate the bed to the left end
             GPIO.output(self.DIR,self.CCW)
@@ -203,8 +205,8 @@ class Motor_Positioner:
         
         self.total_steps = self.steps
 
-        self.position = self.rail_length/2
-
+        print("Enter the distance from left end to position the bed (in mm):")
+        self.position = float(input())
         self.desired_step = int((self.position/self.rail_length)*self.total_steps)
 
         GPIO.output(self.DIR,self.CCW)
@@ -216,14 +218,15 @@ class Motor_Positioner:
             self.left = GPIO.input(self.LEFT)                                        
             self.right = GPIO.input(self.RIGHT)
             self.steps = self.steps-1
-            if (self.steps==self.desired_step):
-                self.centered = 1
+
+        tic = time.time()
+        while(tock-tic<2):
+            tock = time.time()
             self.publish_data()
+            time.sleep(0.1)
+        
 
-        self.centered = 1
-        self.publish_data()
-
-        print("Bed Positioned at the center")
+        print("Bed Positioned at ",self.position," mm from left end")
 
 if __name__ == '__main__':
         

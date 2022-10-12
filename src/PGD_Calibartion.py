@@ -12,23 +12,23 @@ import matplotlib.pyplot as plt
 
 
 class PGD_Calibrate():
-        def __init__(self):
+    def __init__(self):
 
-            print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
-            self.PGV_2_PGA = float(input())
-            print("Enter Peak Ground Acceleration(Gs):")
-            self.PGA = float(input())
+        print("Enter Peak Ground Velocity / Peak Ground Acceleration Ratio:")
+        self.PGV_2_PGA = float(input())
+        print("Enter Peak Ground Acceleration(Gs):")
+        self.PGA = float(input())
 
-            self.PGA = self.PGA * 9.80665   # Converting to m/s^2
+        self.PGA = self.PGA * 9.80665   # Converting to m/s^2
+    
+        print("Initiating Rock Shaking")
+        time.sleep(1)
         
-            print("Initiating Rock Shaking")
-            time.sleep(1)
-            
-            self.F_A = F_A_Publisher(self.PGV_2_PGA,self.PGA)
-            
-            self.F, self.A = self.F_A.F_A_Compute()
-            
-            self.velocity_multiplier = Velocity_Publisher(self.F,self.A)
+        self.F_A = F_A_Publisher(self.PGV_2_PGA,self.PGA)
+        
+        self.F, self.A = self.F_A.F_A_Compute()
+        
+        self.velocity_multiplier = Velocity_Publisher(self.F,self.A)
 
 class Velocity_Publisher:
     def __init__(self,F,A):
@@ -39,10 +39,16 @@ class Velocity_Publisher:
         #rospy.init_node('F_A_Subscriber', anonymous=False)
         #rospy.Subscriber("F", Float64, self.callback_F, queue_size=100, buff_size=160*1024)
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
-
+        
+        rospy.init_node('PGD_Calibrator', anonymous=False)
         self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
-
+        self.dist_sub = rospy.Subscriber("/data_acquisition/Bed_Displacement", Float64, self.callback_Distance)
         self.Publish_Velocity()
+        rospy.spin()
+
+    def callback_Distance(self,data):
+        self.actual_disp = data.data
+
 
     def Publish_Velocity(self):
         
@@ -104,7 +110,8 @@ class Velocity_Publisher:
         # plt.show()
 
         print("The Computed Displacement is: ",round(self.disp*100,2)," cms")
-        self.actual_disp = float(input("Enter the Actual Displacement in cms: "))
+        # self.actual_disp = float(input("Enter the Actual Displacement in cms: "))
+        print(" The Actual Displacement is: ",round(self.actual_disp,2)," cms")
 
         self.multipler = self.disp / (self.actual_disp/100)
         print("The Multiplier is: ",round(self.multipler,2))
