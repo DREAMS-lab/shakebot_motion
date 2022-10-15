@@ -176,6 +176,7 @@ class Motor_Positioner:
         self.pub.publish(msg)
 
     def calibrate(self):
+        # self.rail_length = self.rail_length - 164.31
         self.steps = 0
         self.left = GPIO.input(self.LEFT)                                        
         self.right = GPIO.input(self.RIGHT)
@@ -220,8 +221,10 @@ class Motor_Positioner:
             self.steps = self.steps-1
 
         tic = time.time()
-        while(tock-tic<2):
-            tock = time.time()
+        dt = 0
+        while(dt < 2):
+            toc = time.time()
+            dt = toc - tic
             self.publish_data()
             time.sleep(0.1)
         
