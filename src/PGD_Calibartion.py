@@ -62,7 +62,7 @@ class Velocity_Publisher:
         msg.bed_length = 0.0
         msg.bed_position = 0.0   # Publish the user defined position in mm
         msg.pgd_calib_trigger = self.trigger
-        self.pub.publish(msg)
+        self.pub_calibstate.publish(msg)
 
 
     def Publish_Velocity(self):
