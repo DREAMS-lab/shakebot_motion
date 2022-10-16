@@ -41,7 +41,7 @@ class Velocity_Publisher:
         #rospy.Subscriber("F", Float64, self.callback_F, queue_size=100, buff_size=160*1024)
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
         
-        rospy.init_node('PGD_Calibrator', anonymous=False)
+        #rospy.init_node('PGD_Calibrator', anonymous=False)
         self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
         self.dist_sub = rospy.Subscriber("/tag_calib/bed_displacement", Float64, self.callback_Distance)
         self.pub_calibstate = rospy.Publisher('calibration_parameters', calib_msg, queue_size=10)
