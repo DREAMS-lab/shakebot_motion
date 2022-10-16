@@ -9,6 +9,7 @@ from std_msgs.msg import Float64
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+from shakebot_motion.msg import calib_msg
 
 
 class PGD_Calibrate():
@@ -42,12 +43,26 @@ class Velocity_Publisher:
         
         rospy.init_node('PGD_Calibrator', anonymous=False)
         self.pub = rospy.Publisher("/data_acquisition/Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
-        self.dist_sub = rospy.Subscriber("/data_acquisition/Bed_Displacement", Float64, self.callback_Distance)
+        self.dist_sub = rospy.Subscriber("/tag_calib/bed_displacement", Float64, self.callback_Distance)
+        self.pub_calibstate = rospy.Publisher('calibration_parameters', calib_msg, queue_size=10)
+        self.trigger = False
+        self.multipler = 1.0
         self.Publish_Velocity()
         rospy.spin()
 
     def callback_Distance(self,data):
         self.actual_disp = data.data
+        if(self.actual_disp != 0.0):
+            self.multipler = self.disp / (self.actual_disp/100)
+    
+    def publish_data(self):
+        msg = calib_msg()
+        msg.left_ls = False
+        msg.right_ls = False
+        msg.bed_length = 0.0
+        msg.bed_position = 0.0   # Publish the user defined position in mm
+        msg.pgd_calib_trigger = self.trigger
+        self.pub.publish(msg)
 
 
     def Publish_Velocity(self):
@@ -90,6 +105,15 @@ class Velocity_Publisher:
         # t = np.array(range(self.step_nm))
         # t = t/self.Hz
 
+        self.trigger = True
+        tic = time.time()
+        toc = 0.0
+        while toc < 0.5:
+            toc = time.time() - tic
+            self.publish_data()
+            time.sleep(0.1)
+
+
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
@@ -109,11 +133,20 @@ class Velocity_Publisher:
         # plt.legend(['Velocity','Displacement'])
         # plt.show()
 
+        self.trigger = False
+        tic = time.time()
+        toc = 0.0
+        while toc < 0.5:
+            toc = time.time() - tic
+            self.publish_data()
+            time.sleep(0.1)
+
+        time.sleep(1)
+        
         print("The Computed Displacement is: ",round(self.disp*100,2)," cms")
         # self.actual_disp = float(input("Enter the Actual Displacement in cms: "))
         print(" The Actual Displacement is: ",round(self.actual_disp,2)," cms")
 
-        self.multipler = self.disp / (self.actual_disp/100)
         print("The Multiplier is: ",round(self.multipler,2))
         self.csv_update()
         
