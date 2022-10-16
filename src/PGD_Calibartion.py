@@ -148,7 +148,13 @@ class Velocity_Publisher:
         print(" The Actual Displacement is: ",round(self.actual_disp,2)," cms")
 
         print("The Multiplier is: ",round(self.multipler,2))
-        self.csv_update()
+        
+        if(self.multipler!=0.0):
+            self.csv_update()
+        else:
+            print("Multipler Error")
+        
+        exit()
         
     def csv_update(self):
         self.file_read = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
