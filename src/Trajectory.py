@@ -5,6 +5,9 @@ from std_msgs.msg import Float64
 
 from time import sleep
 import math
+import os
+import csv
+import time
 
 import rospy
 from std_msgs.msg import String
@@ -62,6 +65,7 @@ class Velocity_Publisher:
                 self.multiplier = self.rows[i][1]
 
     def Publish_Velocity(self):
+        
         self.rate = rospy.Rate(self.Hz)
 
         self.T = 1/self.F
@@ -76,6 +80,7 @@ class Velocity_Publisher:
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
             self.velocity = self.velocity * float(self.multiplier)
+            #self.velocity = self.multiplier * self.velocity
             self.pub.publish(self.velocity)
             #rospy.loginfo(self.velocity)
             self.rate.sleep()

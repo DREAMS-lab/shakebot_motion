@@ -147,7 +147,7 @@ class Velocity_Publisher:
         # self.actual_disp = float(input("Enter the Actual Displacement in cms: "))
         print(" The Actual Displacement is: ",round(self.actual_disp,2)," cms")
 
-        print("The Multiplier is: ",round(self.multipler,2))0
+        print("The Multiplier is: ",round(self.multipler,2))
         
         if(self.multipler!=0.0):
             self.csv_update()
