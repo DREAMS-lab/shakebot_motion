@@ -19,7 +19,17 @@ class UI:
         #Getting Input from the User
         
         print("SHAKE BOT")
-        self.input()
+        self.Velocity_Publisher = Velocity_Publisher()
+        self.pub = self.Velocity_Publisher.get_publisher()
+        print("Initialzing the BED")
+        self.initial_move()
+        self.continue_flag = 'Y'
+        
+        while(self.continue_flag == 'Y'):
+            self.input()
+        
+        print("Exiting Program")
+        exit()
 
 
     def rock_positioned(self):                      #To check if user had placed rock on bed
@@ -61,6 +71,25 @@ class UI:
         result=client.get_result()
         #print(result)
         return result
+    
+    def initial_move(self):
+        
+        tic = time.time()
+        toc = 0.0
+        while toc < 0.5:
+            toc = time.time() - tic
+            self.pub.publish(-0.01)
+            time.sleep(1/self.Hz)
+        self.pub.publish(0.0)
+
+        tic = time.time()
+        toc = 0.0
+        while toc < 0.5:
+            toc = time.time() - tic
+            self.pub.publish(0.01)
+            time.sleep(1/self.Hz)
+        self.pub.publish(0.0)
+
         
 
     def input(self):                                #To get PGV and PGA values and calls the Velocity_Publisher() to calculate trajectory and publish velocity
@@ -99,7 +128,8 @@ class UI:
         # time.sleep(1)
         # rospy.loginfo("Camera Triggered")
         
-        self.Velocity_Publisher = Velocity_Publisher(self.F,self.A)
+        
+        self.Velocity_Publisher.Publish_Velocity(self.F,self.A)
 
         while not self.recorder_state_end:
             self.recorder_state_end=self.camera_call_server(False)
@@ -109,12 +139,6 @@ class UI:
 
         print("Do you want to continue?(Y/N):")
         self.continue_flag = input()
-        if self.continue_flag == "Y":
-            self.input()
-        else:
-            print("Exiting")
-            rospy.signal_shutdown("Stopping")
-            exit()
 
 if __name__ == '__main__':
         
