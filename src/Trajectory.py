@@ -44,7 +44,7 @@ class Velocity_Publisher:
         #rospy.init_node('F_A_Subscriber', anonymous=False)
         #rospy.Subscriber("F", Float64, self.callback_F, queue_size=100, buff_size=160*1024)
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
-
+        rospy.init_node('Publisher')
         self.pub = rospy.Publisher("Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
         self.csv_read()
 
