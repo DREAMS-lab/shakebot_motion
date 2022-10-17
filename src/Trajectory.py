@@ -44,8 +44,22 @@ class Velocity_Publisher:
         #rospy.Subscriber("A", Float64, self.callback_A, queue_size=100, buff_size=160*1024)
 
         self.pub = rospy.Publisher("Velocity", Float64, queue_size=10)     # Publishing to the topic "Frequency"
+        self.csv_read()
 
         self.Publish_Velocity()
+
+    def csv_read(self):
+        self.file_read = open('/home/'+os.getlogin()+'/catkin_ws/src/shakebot_motion/src/Parameters.csv')
+        type(self.file_read)
+        self.csvreader = csv.reader(self.file_read)
+        self.rows=[]
+        for row in self.csvreader:
+                self.rows.append(row)
+        self.file_read.close()
+
+        for i in range(0,len(self.rows)):
+            if(self.rows[i][0]=="Velocity_Multiplier"):
+                self.multiplier = self.rows[i][1]
 
     def Publish_Velocity(self):
         self.rate = rospy.Rate(self.Hz)
@@ -61,6 +75,7 @@ class Velocity_Publisher:
         for self.j in range(self.step_nm):
             self.t = self.j / self.Hz
             self.velocity = 2 * math.pi * self.A * self.F * math.sin(2 * math.pi * self.F * self.t)
+            self.velocity = self.velocity * float(self.multiplier)
             self.pub.publish(self.velocity)
             #rospy.loginfo(self.velocity)
             self.rate.sleep()
