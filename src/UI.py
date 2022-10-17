@@ -73,7 +73,7 @@ class UI:
         return result
     
     def initial_move(self):
-        
+        self.Hz = 200
         tic = time.time()
         toc = 0.0
         while toc < 0.5:

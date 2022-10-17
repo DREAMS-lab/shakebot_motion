@@ -18,7 +18,7 @@ class F_A_Publisher:
         self.PGV_2_PGA = PGV_2_PGA
         self.PGA = PGA
 
-        rospy.init_node('F_A_Publisher', anonymous=False)          # Initialization of Node
+        #rospy.init_node('F_A_Publisher', anonymous=False)          # Initialization of Node
         self.pub1 = rospy.Publisher("F", Float64, queue_size=10)      
         self.pub2 = rospy.Publisher("A", Float64, queue_size=10)
         
