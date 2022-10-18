@@ -25,7 +25,7 @@ class UI:
         self.initial_move()
         self.continue_flag = 'Y'
         
-        while(self.continue_flag == 'Y'):
+        while(self.continue_flag != 'N'):
             self.input()
         
         print("Exiting Program")
@@ -94,11 +94,10 @@ class UI:
 
     def input(self):                                #To get PGV and PGA values and calls the Velocity_Publisher() to calculate trajectory and publish velocity
         
-        os.system("clear")
-        print("SHAKE BOT")
+        # os.system("clear")
+        # print("SHAKE BOT")
         
-        self.rock_positioned()
-        time.sleep(1)
+        # self.rock_positioned()
         
         os.system("clear")
         print("SHAKE BOT")
@@ -137,7 +136,7 @@ class UI:
         # rospy.loginfo("Camera Stopped")
         self.rockstatus()
 
-        print("Do you want to continue?(Y/N):")
+        print("Do you want to continue?(Hit Enter or 'Y' /'N' to exit):")
         self.continue_flag = input()
 
 if __name__ == '__main__':
